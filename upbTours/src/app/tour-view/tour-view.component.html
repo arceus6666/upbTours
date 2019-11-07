@@ -1,0 +1,27 @@
+<div class="nombre">
+  {{ this.currentTour.nombre }}
+</div>
+<div class="viajes">
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr style="text-align: center">
+        <th scope="col">Encargado</th>
+        <th scope="col" *ngFor="let e of this.empty; let i = index">Estación {{i+1}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let viaje of this.viajes">
+        <th scope="row">{{ viaje.encargado }}</th>
+        <td *ngFor="let e of this.empty; let i = index;" align="center" (click)="cellPressed(viaje, i);">
+          <ng-container *ngIf="viaje.estaciones[i]; else elseTemplate">
+            <pre>{{ viaje.estaciones[i].nombre }}</pre>
+          </ng-container>
+          <ng-template #elseTemplate>
+            ---
+          </ng-template>
+          <!-- <pre>{{ viaje.estaciones[i] ?  : '---' }}</pre> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
