@@ -1,0 +1,75 @@
+[
+  {
+    "id": 0,
+    "nombre": "Tour 1",
+    "viajes": [
+      0,
+      1
+    ],
+    "estado": true
+  },
+  {
+    "id": 1,
+    "nombre": "Tour 2",
+    "viajes": [
+      2
+    ],
+    "estado": true
+  },
+  {
+    "id": 2,
+    "nombre": "Tour 3",
+    "viajes": [
+      3
+    ],
+    "estado": true
+  },
+  {
+    "id": 3,
+    "nombre": "Tour 4",
+    "viajes": [
+      4
+    ],
+    "estado": true
+  },
+  {
+    "id": 4,
+    "nombre": "Tour 5",
+    "viajes": [
+      5
+    ],
+    "estado": true
+  },
+  {
+    "id": 5,
+    "nombre": "Tour 6a",
+    "viajes": [
+      6
+    ],
+    "estado": true
+  },
+  {
+    "id": 6,
+    "nombre": "Tour 6b",
+    "viajes": [
+      7
+    ],
+    "estado": true
+  },
+  {
+    "id": 7,
+    "nombre": "Tour 6c",
+    "viajes": [
+      8
+    ],
+    "estado": true
+  },
+  {
+    "id": 8,
+    "nombre": "Tour 10",
+    "viajes": [
+      9
+    ],
+    "estado": true
+  }
+]

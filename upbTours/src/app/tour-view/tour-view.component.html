@@ -1,20 +1,21 @@
 <div class="nombre">
   {{ this.currentTour.nombre }}
 </div>
-<div class="viajes">
-  <table class="table table-bordered">
+<div class="viajes" *ngIf="this.retrievedStages">
+  <table id="table" class="table table-bordered">
     <thead class="thead-light">
       <tr style="text-align: center">
         <th scope="col">Encargado</th>
         <th scope="col" *ngFor="let e of this.empty; let i = index">Estación {{i+1}}</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let viaje of this.viajes">
+    <tbody id="body">
+      <tr *ngFor="let viaje of this.viajes; let j = index;">
         <th scope="row">{{ viaje.encargado }}</th>
-        <td *ngFor="let e of this.empty; let i = index;" align="center" (click)="cellPressed(viaje, i);">
-          <ng-container *ngIf="viaje.estaciones[i]; else elseTemplate">
-            <pre>{{ viaje.estaciones[i].nombre }}</pre>
+        <td *ngFor="let e of this.empty; let i = index;" align="center" (click)="cellPressed(viaje, i, j);"[ngStyle]="{'background-color': this.checkStage(estaciones[viaje.estaciones[i]])}">
+          <ng-container *ngIf="this.getStage(viaje.estaciones[i]); else elseTemplate">
+            <pre>{{ this.getStage(viaje.estaciones[i]).nombre }}</pre>
+            <!-- est -->
           </ng-container>
           <ng-template #elseTemplate>
             ---

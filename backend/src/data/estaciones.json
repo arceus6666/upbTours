@@ -1,0 +1,50 @@
+[
+  {
+    "id": 0,
+    "nombre": "a",
+    "encargado": "a",
+    "ocupado": false
+  },
+  {
+    "id": 1,
+    "nombre": "Aula Prisma",
+    "encargado": "Alexis Marechal",
+    "ocupado": false
+  },
+  {
+    "id": 2,
+    "nombre": "Lab. Física",
+    "encargado": "Jose Luis",
+    "ocupado": false
+  },
+  {
+    "id": 3,
+    "nombre": "c",
+    "encargado": "c",
+    "ocupado": false
+  },
+  {
+    "id": 4,
+    "nombre": "d",
+    "encargado": "d",
+    "ocupado": false
+  },
+  {
+    "id": 5,
+    "nombre": "q",
+    "encargado": "q",
+    "ocupado": false
+  },
+  {
+    "id": 6,
+    "nombre": "w",
+    "encargado": "w",
+    "ocupado": false
+  },
+  {
+    "id": 7,
+    "nombre": "e",
+    "encargado": "e",
+    "ocupado": false
+  }
+]

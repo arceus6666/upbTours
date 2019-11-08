@@ -1,0 +1,93 @@
+[
+  {
+    "id": 0,
+    "encargado": "Encargado 1a",
+    "estaciones": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": 1,
+    "encargado": "Encargado 1b",
+    "estaciones": [
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "id": 2,
+    "encargado": "Encargado 2",
+    "estaciones": [
+      0,
+      2,
+      7
+    ]
+  },
+  {
+    "id": 3,
+    "encargado": "Encargado 3",
+    "estaciones": [
+      0,
+      2,
+      5
+    ]
+  },
+  {
+    "id": 4,
+    "encargado": "Encargado 4",
+    "estaciones": [
+      0,
+      2,
+      1
+    ]
+  },
+  {
+    "id": 5,
+    "encargado": "Encargado 5",
+    "estaciones": [
+      0,
+      5,
+      3
+    ]
+  },
+  {
+    "id": 6,
+    "encargado": "Encargado 6a",
+    "estaciones": [
+      1,
+      4,
+      3
+    ]
+  },
+  {
+    "id": 7,
+    "encargado": "Encargado 6b",
+    "estaciones": [
+      0,
+      2,
+      3
+    ]
+  },
+  {
+    "id": 8,
+    "encargado": "Encargado 6c",
+    "estaciones": [
+      0,
+      2,
+      3
+    ]
+  },
+  {
+    "id": 9,
+    "encargado": "Encargado 10",
+    "estaciones": [
+      0,
+      2,
+      3
+    ]
+  }
+]
