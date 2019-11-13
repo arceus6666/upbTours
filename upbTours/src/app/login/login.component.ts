@@ -14,9 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _router: Router,
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
@@ -26,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit = () => {
-    this._router.navigateByUrl('/main')
+    this._router.navigateByUrl('/main');
   }
 
 }

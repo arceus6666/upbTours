@@ -6,12 +6,6 @@
     "ocupado": false
   },
   {
-    "id": 1,
-    "nombre": "Aula Prisma",
-    "encargado": "Alexis Marechal",
-    "ocupado": false
-  },
-  {
     "id": 2,
     "nombre": "Lab. Física",
     "encargado": "Jose Luis",
