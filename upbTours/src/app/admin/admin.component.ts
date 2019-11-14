@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  public selected: string = 'tours';
+  public selected: string = 'none';
 
   constructor() { }
 

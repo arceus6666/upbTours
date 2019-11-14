@@ -27,10 +27,10 @@ function login(req, res) {
 
 function update(req, res) {
   const { codigo, password, esAdmin } = req.body;
-  Usuario.findOne({ codigo: req.params.id }, (err, usuario) => {
+  Usuario.findOne({ codigo: codigo }, (err, usuario) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!usuario) return res.status(204).send({ msg: 'User not found', ok: false, data: null });
-    usuario.codigo = codigo;
+    // usuario.codigo = codigo;
     usuario.password = password;
     usuario.esAdmin = esAdmin;
     usuario.save().then(usuario => {
