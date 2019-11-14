@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const tourSchema = new Schema({
   id: Number,
   nombre: String,
-  viajes: Array,
+  viajes: [Number],
   estado: Boolean
 });
 

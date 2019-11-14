@@ -1,6 +1,6 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "encargado": "Encargado 1a",
     "estaciones": [
       1,
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "id": 1,
+    "id": 2,
     "encargado": "Encargado 1b",
     "estaciones": [
       5,
@@ -19,74 +19,74 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "encargado": "Encargado 2",
     "estaciones": [
-      0,
-      2,
-      7
-    ]
-  },
-  {
-    "id": 3,
-    "encargado": "Encargado 3",
-    "estaciones": [
-      0,
-      2,
-      5
+      1,
+      3,
+      8
     ]
   },
   {
     "id": 4,
-    "encargado": "Encargado 4",
+    "encargado": "Encargado 3",
     "estaciones": [
-      0,
-      2,
-      1
+      1,
+      3,
+      6
     ]
   },
   {
     "id": 5,
-    "encargado": "Encargado 5",
+    "encargado": "Encargado 4",
     "estaciones": [
-      0,
-      5,
-      3
+      1,
+      3,
+      2
     ]
   },
   {
     "id": 6,
-    "encargado": "Encargado 6a",
+    "encargado": "Encargado 5",
     "estaciones": [
       1,
-      4,
-      3
+      6,
+      4
     ]
   },
   {
     "id": 7,
-    "encargado": "Encargado 6b",
+    "encargado": "Encargado 6a",
     "estaciones": [
-      0,
       2,
-      3
+      5,
+      4
     ]
   },
   {
     "id": 8,
-    "encargado": "Encargado 6c",
+    "encargado": "Encargado 6b",
     "estaciones": [
-      0,
-      2,
-      3
+      10,
+      12,
+      9
     ]
   },
   {
     "id": 9,
+    "encargado": "Encargado 6c",
+    "estaciones": [
+      20,
+      23,
+      32
+    ]
+  },
+  {
+    "id": 10,
     "encargado": "Encargado 10",
     "estaciones": [
-      0,
-      2,
+      15,
+      32,
       3
     ]
   }

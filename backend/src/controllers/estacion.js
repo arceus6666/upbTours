@@ -1,6 +1,6 @@
 const Estacion = require('../models/estacion');
 
-const add = async (req, res) => {
+async function add(req, res) {
   const { nombre, encargado } = req.body;
   const estacion = new Estacion({
     id: null,
@@ -28,7 +28,7 @@ const add = async (req, res) => {
   });
 }
 
-const update = async (req, res) => {
+async function update(req, res) {
   const { nombre, encargado, ocupado } = req.body;
   await Estacion.findOne({ id: req.params.id }, (err, estacion) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
@@ -44,7 +44,7 @@ const update = async (req, res) => {
   });
 }
 
-const getAll = (req, res) => {
+async function getAll(req, res) {
   Estacion.find({}, (err, data) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!data || data.length === 0) return res.status(200).send({ msg: 'No stages', ok: true, data: [] });
@@ -52,7 +52,7 @@ const getAll = (req, res) => {
   });
 }
 
-const getOne = (req, res) => {
+async function getOne(req, res) {
   Estacion.findOne({ id: req.params.id }, (err, data) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!data) return res.status(404).send({ msg: 'Stage not found', ok: false, data: null });
@@ -60,7 +60,7 @@ const getOne = (req, res) => {
   });
 }
 
-const remove = (req, res) => {
+async function remove(req, res) {
   Estacion.findOneAndDelete({ id: req.params.id }, (err, data) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!data) return res.status(404).send({ msg: 'Stage not found', ok: false, data: null });

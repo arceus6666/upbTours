@@ -12,7 +12,8 @@
     "id": 1,
     "nombre": "Tour 2",
     "viajes": [
-      2
+      2,
+      3
     ],
     "estado": true
   },
@@ -36,7 +37,7 @@
     "id": 4,
     "nombre": "Tour 5",
     "viajes": [
-      5
+      5,2,3
     ],
     "estado": true
   },

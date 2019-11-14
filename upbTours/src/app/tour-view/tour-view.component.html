@@ -1,7 +1,7 @@
 <div class="nombre">
-  {{ this.currentTour.nombre }}
+  <h2>{{ this.currentTour.nombre }}</h2>
 </div>
-<div class="viajes" *ngIf="this.retrievedStages">
+<div class="viajes">
   <table id="table" class="table table-bordered">
     <thead class="thead-light">
       <tr style="text-align: center">
@@ -10,17 +10,20 @@
       </tr>
     </thead>
     <tbody id="body">
-      <tr *ngFor="let viaje of this.viajes; let j = index;">
-        <th scope="row">{{ viaje.encargado }}</th>
-        <td *ngFor="let e of this.empty; let i = index;" align="center" (click)="cellPressed(viaje, i, j);"[ngStyle]="{'background-color': this.checkStage(estaciones[viaje.estaciones[i]])}">
-          <ng-container *ngIf="this.getStage(viaje.estaciones[i]); else elseTemplate">
-            <pre>{{ this.getStage(viaje.estaciones[i]).nombre }}</pre>
-            <!-- est -->
+      <tr *ngFor="let viaje of this.currentTour.viajes; let j = index;">
+        <th scope="row">
+          {{ viaje.encargado }}
+        </th>
+        <td *ngFor="let e of this.empty; let i = index;" align="center"
+          (click)="cellPressed(viaje.estaciones[i], i, j);"
+          [ngStyle]="{'background-color': this.checkStage(viaje.estaciones[i])}">
+          <ng-container *ngIf="viaje.estaciones[i]; else elseTemplate">
+            {{ viaje.estaciones[i].nombre }}<br />
+            {{ viaje.estaciones[i].encargado }}
           </ng-container>
           <ng-template #elseTemplate>
             ---
           </ng-template>
-          <!-- <pre>{{ viaje.estaciones[i] ?  : '---' }}</pre> -->
         </td>
       </tr>
     </tbody>

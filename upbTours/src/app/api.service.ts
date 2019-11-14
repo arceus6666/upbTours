@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class ApiService {
     return this._http.get<Object>(`${this.backend_url}${url}`, {
       headers: headers,
       params: params
-    });
+    }).pipe(map((data: any) => data));
   }
 
   public postGlobal<Object>(

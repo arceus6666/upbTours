@@ -1,0 +1,39 @@
+.mybtn {
+  min-width: 300px;
+}
+
+.info {
+  height: 500px;
+  padding: 5%;
+  overflow-y: scroll;
+}
+
+.info::-webkit-scrollbar {
+  width: 12px;
+}
+
+.info::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.info::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(126, 126, 126, 0.8);
+  box-shadow: inset 0 0 6px rgba(126, 126, 126, 0.8);
+  border-radius: 10px;
+}
+
+.left-panel {
+  /* width: 30%; */
+  min-width: 350px;
+  padding-left: 0%;
+  /* padding-right: 10%; */
+  position: static;
+}
+
+.right-panel {
+  width: 90%;
+  padding-left: 5%;
+  /* margin-left: 10%; */
+}

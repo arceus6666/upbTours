@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const viajeSchema = new Schema({
   id: Number,
   encargado: String,
-  estaciones: Array
+  estaciones: [Number]
 });
 
 const Viaje = mongoose.model('Viaje', viajeSchema);

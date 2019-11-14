@@ -1,0 +1,30 @@
+<div class="grupos">
+  <input id="gi" type="number" #grupos>
+  <button id="gb" (click)="setGroups(grupos.value);">Aceptar</button>
+</div>
+
+<div *ngIf="this.groups">
+
+  <h3>Introduzca el nombre del Tour: </h3>
+  <input class="m-3" type="text" id="tourName"><br />
+  <div *ngFor="let g of this.groups; let gi = index;">
+    <h4>Seleccione las estaciones del grupo {{ gi + 1 }}:</h4>
+    <form id="{{ 'form' + gi }}" class="border border-danger">
+      <div class="mt-3 ml-3">
+        Nombre del encargado: <input type="text" id="{{ 'enc' + gi }}">
+      </div><br />
+      <div class="form-row" *ngFor="let row of this.estacionesShow; let r = index;">
+        <div class="form-group col-md-2" *ngFor="let col of row; let c = index;">
+          <div class="form-check" *ngIf="col">
+            <input class="form-check-input" type="checkbox" id="{{'check'+gi+':'+c+r}}">
+            <label class="form-check-label" for="gridCheck">
+              {{col ? col.nombre : ''}}
+              <!-- {{'check'+gi+':'+c+r}} -->
+            </label>
+          </div>
+        </div>
+      </div>
+    </form><br />
+  </div>
+  <button (click)="showResults()">Crear</button>
+</div>

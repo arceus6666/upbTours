@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'upbTours';
+  public logged = this._service.logged;
+  public esAdmin = this._service.esAdmin;
+
+  constructor(
+    private _service: AppService
+  ) { }
+
 }

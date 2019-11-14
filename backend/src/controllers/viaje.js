@@ -1,7 +1,7 @@
 const Viaje = require('../models/viaje');
 const Estacion = require('../models/estacion');
 
-const add = async (req, res) => {
+async function add(req, res) {
   const { encargado, estaciones } = req.body;
   const viaje = new Viaje({
     id: null,
@@ -28,7 +28,7 @@ const add = async (req, res) => {
   });
 }
 
-const update = async (req, res) => {
+async function update(req, res) {
   const { encargado, estaciones } = req.body;
   await Viaje.findOne({ id: req.params.id }, (err, estacion) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
@@ -43,12 +43,10 @@ const update = async (req, res) => {
   });
 }
 
-const getAll = async (req, res) => {
+async function getAll(req, res) {
   await Viaje.find({}, async (err, data) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!data || data.length === 0) return res.status(200).send({ msg: 'No trips', ok: true, data: [] });
-    const viajes = [];
-    let i = 0;
     await Estacion.find({}, async (err, data2) => {
       if (err) return res.status(502).send({ msg: err, ok: false, data: null });
       if (!data2) return res.status(404).send({ msg: 'Trip not found', ok: false, data: null });
@@ -61,7 +59,7 @@ const getAll = async (req, res) => {
   });
 }
 
-const getOne = async (req, res) => {
+async function getOne(req, res) {
   await Viaje.findOne({ id: req.params.id }, async (err, data) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!data) return res.status(404).send({ msg: 'Trip not found', ok: false, data: null });
@@ -75,7 +73,7 @@ const getOne = async (req, res) => {
   });
 }
 
-const remove = async (req, res) => {
+async function remove(req, res) {
   await Viaje.findOneAndDelete({ id: req.params.id }, (err, data) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!data) return res.status(404).send({ msg: 'Trip not found', ok: false, data: null });

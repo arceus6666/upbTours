@@ -1,0 +1,21 @@
+<table>
+  <td class="left-panel">
+    <div class="info" style="width: max-content; min-width: 350px; border: 5px dotted gray">
+      <button type="button" class="btn btn-light mybtn" (click)="select('tours');">
+        Añadir tour
+      </button><br />
+      <button type="button" class="btn btn-light mybtn" (click)="select('usuarios');">
+        Añadir usuario
+      </button><br />
+      <button type="button" class="btn btn-light mybtn" (click)="select('tba');" disabled>
+        TBA
+      </button>
+    </div>
+  </td>
+  <td class="right-panel">
+    <div class="border">
+      <app-users *ngIf="this.selected==='usuarios'"></app-users>
+      <app-tours *ngIf="this.selected==='tours'"></app-tours>
+    </div>
+  </td>
+</table>
