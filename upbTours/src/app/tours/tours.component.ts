@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Tour } from '../models/tour.interface';
 import { Estacion } from '../models/estacion.interface';
-import { Viaje } from '../models/viaje.interface';
+import { Router } from '@angular/router';
+// tslint:disable: forin
 
 @Component({
   selector: 'app-tours',
@@ -12,13 +13,15 @@ import { Viaje } from '../models/viaje.interface';
 export class ToursComponent implements OnInit {
 
   public tours: Array<Tour> = null;
-  public groups: Array<number> = null;
+  public groups: Array<Array<any>> = null;
+  public groupsid: Array<Array<any>> = null;
   // public estaciones: Array<Estacion> = null;
   public estacionesShow: Array<Array<Estacion>> = null;
   public el = 0;
   public ll = 0;
   constructor(
-    private _service: ApiService
+    private _service: ApiService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -52,6 +55,7 @@ export class ToursComponent implements OnInit {
     document.getElementById('gi').hidden = true;
     document.getElementById('gb').hidden = true;
     this.groups = new Array(gg);
+    this.groupsid = new Array(gg);
     // console.log(this.groups);
   }
 
@@ -64,40 +68,46 @@ export class ToursComponent implements OnInit {
     for (let i = 0; i < this.groups.length; i++) {
       const enc = document.getElementById(`enc${i}`) as HTMLInputElement;
       // console.log(enc.value);
-      const viaje = {
-        encargado: enc.value,
-        estaciones: []
-      };
-      // const est = [];
 
-      for (let k = 0, c = 0; k < this.el; k++) {
-        for (let j = 0; j < 6 && c < this.ll; j++) {
-          const e = document.getElementById(`check${i}:${j}${k}`) as HTMLInputElement;
-          if (e.checked) {
-            viaje.estaciones.push(this.estacionesShow[k][j].id);
-            console.log(this.estacionesShow[k][j])
-          }
-          // console.log(c, e.checked);
-          c++;
-        }
-      }
-      // tour.viajes.push(i);
-      console.log(viaje);
-      // this._service.postGlobal('viajes', viaje).subscribe((data: any) => {
-      //   // console.log(data);
-      //   tour.viajes.push(data.data.id);
-      // });
+      setTimeout(() => {
+        this._service.postGlobal('viajes', {
+          encargado: enc.value,
+          estaciones: this.groupsid[i]
+        }).subscribe((data: any) => {
+          // console.log(data);
+          console.log('Created trip', data.data.id, i);
+          tour.viajes.push(data.data.id);
+        });
+      }, 50);
 
       // console.log(i + 1, rows);
     }
-    // console.log(tour)
-    // this._service.postGlobal('tours', tour).subscribe((data: any) => {
-    //   if (data.ok) {
-    //     alert('Tour creado');
-    //   }
-    // }, err => {
-    //   console.log(err.error);
-    // });
+    setTimeout(() => {
+      // console.log(tour);
+      this._service.postGlobal('tours', tour).subscribe((data: any) => {
+        if (data.ok) {
+          alert('Tour creado');
+          this._router.navigate(['/main']);
+        }
+      }, err => {
+        console.log(err.error);
+      });
+    }, 1000);
+  }
+
+  public selectStage = (stage: Estacion, f, c, r) => {
+    if (!this.groups[f]) {
+      this.groups[f] = [];
+      this.groupsid[f] = [];
+    }
+    this.groups[f].push(stage);
+    this.groupsid[f].push(stage.id);
+    // console.log(stage, f, c, r);
+  }
+
+  public removeStage = (gri, gi) => {
+    this.groups[gi].splice(gri, 1);
+    // console.log(gri, gi);
   }
 
 }

@@ -8,18 +8,18 @@ async function add(req, res) {
     encargado: encargado,
     estaciones: estaciones
   });
-  await Viaje.find({}, (err, viajes) => {
+  await Viaje.find({}, async (err, viajes) => {
     if (err) return res.status(502).send({ msg: err, ok: false, data: null });
     if (!viajes || viajes.length === 0) {
       viaje.id = 1;
-      viaje.save().then(data => {
+      await viaje.save().then(data => {
         res.status(201).send({ msg: 'Created', ok: true, data });
       }, err => {
         res.status(502).send({ msg: err, ok: false, data: null });
       });
     } else {
-      viaje.id = viajes[viajes.length - 1].id + 1;
-      viaje.save().then(data => {
+      viaje.id = await viajes[viajes.length - 1].id + 1;
+      await viaje.save().then(data => {
         res.status(201).send({ msg: 'Created', ok: true, data });
       }, err => {
         res.status(502).send({ msg: err, ok: false, data: null });
