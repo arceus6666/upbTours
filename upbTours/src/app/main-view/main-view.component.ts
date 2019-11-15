@@ -13,11 +13,11 @@ import { Estacion } from '../models/estacion.interface';
 })
 export class MainViewComponent implements OnInit {
 
-  public tours: Array<Tour> = null;
-  // public tours: any = null;
-  public showTours: Array<Tour> = null;
-  public currentTour: Tour = null;
-  public currentFilter: string = '';
+  tours: Array<Tour> = null;
+  // tours: any = null;
+  showTours: Array<Tour> = null;
+  currentTour: Tour = null;
+  currentFilter: string = '';
 
   constructor(
     private _service: ApiService
@@ -35,7 +35,7 @@ export class MainViewComponent implements OnInit {
     // console.log(this.tours)
   }
 
-  public filter = (txt: string) => {
+  filter(txt: string) {
     txt = this.clean(txt);
     this.currentFilter = txt;
     // console.log(txt);
@@ -43,7 +43,7 @@ export class MainViewComponent implements OnInit {
     this.currentTour = this.showTours[0];
   }
 
-  public clean = (str: string): string => {
+  clean(str: string): string {
     let res = str.toLowerCase();
     res = res.replace(/[àáäâ]/g, 'a');
     res = res.replace(/[èéëê]/g, 'e');
@@ -53,12 +53,12 @@ export class MainViewComponent implements OnInit {
     return res;
   }
 
-  public selectTour = (index: number) => {
+  selectTour(index: number) {
     // console.log(this.showTours[index]);
     this.currentTour = this.showTours[index];
   }
 
-  public stageChange = (event: { estacion: Estacion, stage: number, trip: number }) => {
+  stageChange(event: { estacion: Estacion, stage: number, trip: number }) {
     this._service.putGlobal(`estaciones/${event.estacion.id}`, event.estacion).subscribe((data: any) => {
       if (data.ok) {
         for (const t in this.tours) {
@@ -77,7 +77,6 @@ export class MainViewComponent implements OnInit {
         alert('Estación actualizada!');
       }
     });
-
     // console.log(event);
   }
 

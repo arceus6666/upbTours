@@ -15,18 +15,15 @@ export class ApiService {
     this.backend_url = 'http://localhost:3000/';
   }
 
-  public getGlobal<Object>(
-    url: string,
-    params?: HttpParams,
-    headers?: HttpHeaders
+  getGlobal<Object>(
+    url: string
   ): Observable<Object> {
     return this._http.get<Object>(`${this.backend_url}${url}`, {
-      headers: headers,
-      params: params
+      headers: { 'Content-Type': 'application/json' }
     }).pipe(map((data: any) => data));
   }
 
-  public postGlobal<Object>(
+  postGlobal<Object>(
     url: string,
     body: any
   ) {
@@ -36,21 +33,19 @@ export class ApiService {
     });
   }
 
-  public deleteGlobal<Object>(
-    url: string,
-    code: string,
+  deleteGlobal<Object>(
+    url: string
   ) {
-    return this._http.delete<Object>(`${this.backend_url}${url}/${code}`, {
+    return this._http.delete<Object>(`${this.backend_url}${url}`, {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  public putGlobal<Object>(
+  putGlobal<Object>(
     url: string,
     body: any
   ) {
     body = JSON.stringify(body);
-
     return this._http.put<Object>(`${this.backend_url}${url}`, body, {
       headers: { 'Content-Type': 'application/json' }
     });

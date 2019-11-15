@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
 })
 export class ToursComponent implements OnInit {
 
-  public tours: Array<Tour> = null;
-  public groups: Array<Array<any>> = null;
-  public groupsid: Array<Array<any>> = null;
-  // public estaciones: Array<Estacion> = null;
-  public estacionesShow: Array<Array<Estacion>> = null;
-  public el = 0;
-  public ll = 0;
+  tours: Array<Tour> = null;
+  groups: Array<Array<any>> = null;
+  groupsid: Array<Array<any>> = null;
+  // estaciones: Array<Estacion> = null;
+  estacionesShow: Array<Array<Estacion>> = null;
+  el = 0;
+  ll = 0;
   constructor(
     private _service: ApiService,
     private _router: Router
@@ -49,7 +49,7 @@ export class ToursComponent implements OnInit {
     });
   }
 
-  public setGroups = (g: string) => {
+  setGroups(g: string) {
     const gg = parseInt(g, 10);
     // console.log(g)
     document.getElementById('gi').hidden = true;
@@ -59,7 +59,7 @@ export class ToursComponent implements OnInit {
     // console.log(this.groups);
   }
 
-  public showResults = () => {
+  showResults() {
     const name = document.getElementById('tourName') as HTMLInputElement;
     const tour = {
       nombre: name.value,
@@ -69,7 +69,7 @@ export class ToursComponent implements OnInit {
       const enc = document.getElementById(`enc${i}`) as HTMLInputElement;
       // console.log(enc.value);
 
-      setTimeout(() => {
+      setTimeout(function () {
         this._service.postGlobal('viajes', {
           encargado: enc.value,
           estaciones: this.groupsid[i]
@@ -82,7 +82,7 @@ export class ToursComponent implements OnInit {
 
       // console.log(i + 1, rows);
     }
-    setTimeout(() => {
+    setTimeout(function () {
       // console.log(tour);
       this._service.postGlobal('tours', tour).subscribe((data: any) => {
         if (data.ok) {
@@ -95,7 +95,7 @@ export class ToursComponent implements OnInit {
     }, 1000);
   }
 
-  public selectStage = (stage: Estacion, f, c, r) => {
+  selectStage(stage: Estacion, f, c, r) {
     if (!this.groups[f]) {
       this.groups[f] = [];
       this.groupsid[f] = [];
@@ -105,7 +105,7 @@ export class ToursComponent implements OnInit {
     // console.log(stage, f, c, r);
   }
 
-  public removeStage = (gri, gi) => {
+  removeStage(gri, gi) {
     this.groups[gi].splice(gri, 1);
     // console.log(gri, gi);
   }

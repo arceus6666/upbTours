@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  public logged: boolean;
-  public esAdmin: boolean;
+  logged: boolean;
+  esAdmin: boolean;
 
-  constructor(
-    private _service: ApiService
-  ) {
+  constructor() {
     this.logged = false;
     this.esAdmin = null;
   }
 
-  public login = (es: boolean) => { this.logged = true; this.esAdmin = es; };
-  public logout = (es: boolean) => { this.logged = false; this.esAdmin = es; };
+  login(es: boolean) { this.logged = true; this.esAdmin = es; };
+  logout(es: boolean) { this.logged = false; this.esAdmin = es; };
 }

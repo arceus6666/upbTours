@@ -11,7 +11,7 @@ import { AppService } from '../app.service';
 })
 export class LoginComponent implements OnInit {
 
-  public loginForm: FormGroup;
+  loginForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public onSubmit = () => {
+  onSubmit() {
     // console.log(this.loginForm.value)
     this._service.postGlobal('usuarios/login', this.loginForm.value).subscribe((data: any) => {
       if (data.ok) {

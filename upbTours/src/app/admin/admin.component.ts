@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  public selected: string = 'none';
+  selected: string = 'none';
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  public select = (id: string) => {
+  select(id: string) {
     this.selected = id;
   }
 

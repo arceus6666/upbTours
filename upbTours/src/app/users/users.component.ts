@@ -9,8 +9,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class UsersComponent implements OnInit {
 
-  public users: Array<any> = null;
-  public userForm: FormGroup;
+  users: Array<any> = null;
+  userForm: FormGroup;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -27,16 +27,16 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  public change = (user) => {
+  change(user) {
     this._service.putGlobal('usuarios', user).subscribe((data: any) => {
       if (data.ok) {
         alert('Usuario actualizado');
       }
     });
-    console.log(user);
+    // console.log(user);
   }
 
-  public onSubmit = () => {
+  onSubmit() {
     this._service.postGlobal('usuarios/add', this.userForm.value).subscribe((data: any) => {
       if (data.ok) {
         this.users.push(data.data);

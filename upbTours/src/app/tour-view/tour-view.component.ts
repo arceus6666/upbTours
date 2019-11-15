@@ -15,13 +15,13 @@ export class TourViewComponent implements OnInit {
 
   @Input() currentTour: Tour;
   @Output() stageClick = new EventEmitter;
-  // public viajeInicial: Viaje;
-  // public viajes: Array<Viaje> = null;
-  // public estaciones: Array<Estacion> = null;
-  // public retrievedStages = false;
-  // public l: number = 0;
-  // public maxEstaciones: number;
-  public empty;
+  // viajeInicial: Viaje;
+  // viajes: Array<Viaje> = null;
+  // estaciones: Array<Estacion> = null;
+  // retrievedStages = false;
+  // l: number = 0;
+  // maxEstaciones: number;
+  empty: Array<any>;
 
   constructor(
     private _service: ApiService
@@ -45,7 +45,7 @@ export class TourViewComponent implements OnInit {
     this.empty = new Array(maxEstaciones);
   }
 
-  public cellPressed = (estacion: Estacion, stage: number, trip: number) => {
+  cellPressed(estacion: Estacion, stage: number, trip: number) {
     // console.log(this.currentTour.viajes[trip].estaciones[stage]);
     if (typeof estacion !== 'undefined') {
       estacion.ocupado = !estacion.ocupado;
@@ -55,7 +55,7 @@ export class TourViewComponent implements OnInit {
     // }, 1000);
   }
 
-  public checkStage(estacion: Estacion) {
+  checkStage(estacion: Estacion) {
     // console.log(estacion)
     if (typeof estacion === 'undefined') {
       return 'white';

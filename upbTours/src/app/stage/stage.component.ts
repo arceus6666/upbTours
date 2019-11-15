@@ -9,7 +9,7 @@ import { Estacion } from '../models/estacion.interface';
 })
 export class StageComponent implements OnInit {
 
-  // public estaciones: Array<Estacion> = null;
+  // estaciones: Array<Estacion> = null;
   estacionesShow: Array<Array<Estacion>> = null;
   editar: boolean = false;
   index: number = null;
@@ -54,7 +54,7 @@ export class StageComponent implements OnInit {
   accept(c: number, r: number) {
     this.estacionesShow[r][c].nombre = this.nombre;
     this.estacionesShow[r][c].encargado = this.encargado;
-    setTimeout(() => {
+    setTimeout(function () {
       this._service.putGlobal(`estaciones/${this.estacionesShow[r][c].id}`, this.estacionesShow[r][c]).subscribe((data: any) => {
         if (data.ok) {
           alert('Editado correctamente');

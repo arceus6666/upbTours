@@ -20,9 +20,12 @@ mongoose.set('useUnifiedTopology', true);
 const mongouri = process.env.MONGODB_URI || 'mongodb://localhost:27017/upbtours';
 
 mongoose.connect(mongouri, (err, res) => {
-  if (err) return console.log(`Hubo un error al inicializar: \n\t${err}.`);
-  console.log('Conexion a Mongo establecida.');
-  app.listen(3000, () => {
-    console.log('Escuchando en el puerto 3000.');
-  });
+  if (err) {
+    console.log(`Hubo un error al inicializar: \n\t${err}.`);
+  } else {
+    console.log('Conexion a Mongo establecida.');
+    app.listen(3000, () => {
+      console.log('Escuchando en el puerto 3000.');
+    });
+  }
 });

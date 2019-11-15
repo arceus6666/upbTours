@@ -8,9 +8,10 @@ async function add(req, res) {
     encargado: encargado,
     ocupado: false
   });
-  await Estacion.find({}, (err, estaciones) => {
-    if (err) return res.status(502).send({ msg: err, ok: false, data: null });
-    if (!estaciones || estaciones.length === 0) {
+  await Estacion.find({}, function (err, estaciones) {
+    if (err) {
+      res.status(502).send({ msg: err, ok: false, data: null });
+    } else if (!estaciones || estaciones.length === 0) {
       estacion.id = 1;
       estacion.save().then(data => {
         res.status(201).send({ msg: 'Created', ok: true, data });
@@ -30,41 +31,57 @@ async function add(req, res) {
 
 async function update(req, res) {
   const { nombre, encargado, ocupado } = req.body;
-  await Estacion.findOne({ id: req.params.id }, (err, estacion) => {
-    if (err) return res.status(502).send({ msg: err, ok: false, data: null });
-    if (!estacion) return res.status(200).send({ msg: 'Stage not found', ok: false, data: null });
-    estacion.nombre = nombre;
-    estacion.encargado = encargado;
-    estacion.ocupado = ocupado;
-    estacion.save().then(data => {
-      res.status(201).send({ msg: 'Stage updated', ok: true, data });
-    }, err => {
+  await Estacion.findOne({ id: req.params.id }, function (err, estacion) {
+    if (err) {
       res.status(502).send({ msg: err, ok: false, data: null });
-    });
+    } else if (!estacion) {
+      res.status(200).send({ msg: 'Stage not found', ok: false, data: null });
+    } else {
+      estacion.nombre = nombre;
+      estacion.encargado = encargado;
+      estacion.ocupado = ocupado;
+      estacion.save().then(data => {
+        res.status(201).send({ msg: 'Stage updated', ok: true, data });
+      }, err => {
+        res.status(502).send({ msg: err, ok: false, data: null });
+      });
+    }
   });
 }
 
 async function getAll(req, res) {
-  Estacion.find({}, (err, data) => {
-    if (err) return res.status(502).send({ msg: err, ok: false, data: null });
-    if (!data || data.length === 0) return res.status(200).send({ msg: 'No stages', ok: true, data: [] });
-    res.status(200).send({ msg: 'Data', ok: true, data });
+  Estacion.find({}, function (err, data) {
+    if (err) {
+      res.status(502).send({ msg: err, ok: false, data: null });
+    } else if (!data || data.length === 0) {
+      res.status(200).send({ msg: 'No stages', ok: true, data: [] });
+    } else {
+      res.status(200).send({ msg: 'Data', ok: true, data });
+    }
   });
 }
 
 async function getOne(req, res) {
-  Estacion.findOne({ id: req.params.id }, (err, data) => {
-    if (err) return res.status(502).send({ msg: err, ok: false, data: null });
-    if (!data) return res.status(404).send({ msg: 'Stage not found', ok: false, data: null });
-    res.status(200).send({ msg: 'Data', ok: true, data });
+  Estacion.findOne({ id: req.params.id }, function (err, data) {
+    if (err) {
+      res.status(502).send({ msg: err, ok: false, data: null });
+    } else if (!data) {
+      res.status(404).send({ msg: 'Stage not found', ok: false, data: null });
+    } else {
+      res.status(200).send({ msg: 'Data', ok: true, data });
+    }
   });
 }
 
 async function remove(req, res) {
-  Estacion.findOneAndDelete({ id: req.params.id }, (err, data) => {
-    if (err) return res.status(502).send({ msg: err, ok: false, data: null });
-    if (!data) return res.status(404).send({ msg: 'Stage not found', ok: false, data: null });
-    res.status(200).send({ msg: 'Deleted', ok: true, data });
+  Estacion.findOneAndDelete({ id: req.params.id }, function (err, data) {
+    if (err) {
+      res.status(502).send({ msg: err, ok: false, data: null });
+    } else if (!data) {
+      res.status(404).send({ msg: 'Stage not found', ok: false, data: null });
+    } else {
+      res.status(200).send({ msg: 'Deleted', ok: true, data });
+    }
   });
 }
 
