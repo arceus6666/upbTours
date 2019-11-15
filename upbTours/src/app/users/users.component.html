@@ -8,7 +8,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="codigoPrepend"><i class="fas fa-user"></i></span>
       </div>
-      <input type="text" class="form-control" id="codigo" value="{{u.codigo}}" required>
+      <input type="text" class="form-control" id="codigo" value="{{u.codigo}}" disabled>
     </div>
   </div>
   <div class="col-md-4 mb-3">
@@ -17,7 +17,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="passPrepend"><i class="fas fa-key"></i></span>
       </div>
-      <input type="password" class="form-control" id="pass" value="{{u.password}}" required>
+      <input type="text" class="form-control" id="pass" value="{{u.password}}" disabled>
     </div>
   </div>
   <div class="custom-control custom-switch col-md-2 mb-3 ml-5 pt-2">
@@ -32,13 +32,13 @@
   </div>
   <form class="px-4 py-3" name="userForm" [formGroup]="userForm">
     <div class="form-group">
-      <label for="exampleDropdownFormEmail1">Código</label>
-      <input type="number" class="form-control" id="exampleDropdownFormEmail1" placeholder="12345"
+      <label for="code1">Código</label>
+      <input type="number" class="form-control" id="code1" placeholder="12345"
         formControlName="codigo">
     </div>
     <div class="form-group">
-      <label for="exampleDropdownFormPassword1">Contraseña</label>
-      <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password"
+      <label for="pass1">Contraseña</label>
+      <input type="text" class="form-control" id="pass1" placeholder="Password"
         formControlName="password">
     </div>
     <button type="submit" class="btn btn-secondary" (click)="onSubmit()">Crear</button>

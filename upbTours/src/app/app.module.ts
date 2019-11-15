@@ -11,6 +11,7 @@ import { MainViewComponent } from './main-view/main-view.component';
 import { AdminComponent } from './admin/admin.component';
 import { UsersComponent } from './users/users.component';
 import { ToursComponent } from './tours/tours.component';
+import { StageComponent } from './stage/stage.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ToursComponent } from './tours/tours.component';
     MainViewComponent,
     AdminComponent,
     UsersComponent,
-    ToursComponent
+    ToursComponent,
+    StageComponent
   ],
   imports: [
     BrowserModule,
