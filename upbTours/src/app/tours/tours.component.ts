@@ -69,7 +69,7 @@ export class ToursComponent implements OnInit {
       const enc = document.getElementById(`enc${i}`) as HTMLInputElement;
       // console.log(enc.value);
 
-      setTimeout(function () {
+      setTimeout(() => {
         this._service.postGlobal('viajes', {
           encargado: enc.value,
           estaciones: this.groupsid[i]
@@ -79,10 +79,9 @@ export class ToursComponent implements OnInit {
           tour.viajes.push(data.data.id);
         });
       }, 50);
-
       // console.log(i + 1, rows);
     }
-    setTimeout(function () {
+    setTimeout(() => {
       // console.log(tour);
       this._service.postGlobal('tours', tour).subscribe((data: any) => {
         if (data.ok) {
