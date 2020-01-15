@@ -48,7 +48,7 @@ export class TourViewComponent implements OnInit {
   cellPressed(estacion: Estacion, stage: number, trip: number) {
     // console.log(this.currentTour.viajes[trip].estaciones[stage]);
     if (typeof estacion !== 'undefined') {
-      estacion.ocupado = !estacion.ocupado;
+      // estacion.est = !estacion.ocupado;
       this.stageClick.emit({ estacion, stage, trip });
     }
     // setTimeout(() => {
@@ -57,11 +57,12 @@ export class TourViewComponent implements OnInit {
 
   checkStage(estacion: Estacion) {
     // console.log(estacion)
-    if (typeof estacion === 'undefined') {
-      return 'white';
-    } else {
-      return estacion.ocupado ? 'red' : 'green';
-    }
+    // if (typeof estacion === 'undefined') {
+    //   return 'white';
+    // } else {
+    //   return estacion.ocupado ? 'red' : 'green';
+    // }
+    return 'white';
   }
 
 }

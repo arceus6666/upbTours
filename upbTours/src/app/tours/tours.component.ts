@@ -94,18 +94,18 @@ export class ToursComponent implements OnInit {
     }, 1000);
   }
 
-  selectStage(stage: Estacion, f, c, r) {
-    if (!this.groups[f]) {
-      this.groups[f] = [];
-      this.groupsid[f] = [];
+  selectStage(stage: Estacion, c, r) {
+    if (!this.groups[0]) {
+      this.groups[0] = [];
+      this.groupsid[0] = [];
     }
-    this.groups[f].push(stage);
-    this.groupsid[f].push(stage.id);
-    // console.log(stage, f, c, r);
+    this.groups[0].push(stage);
+    this.groupsid[0].push(stage.id);
+    console.log(stage, c, r);
   }
 
-  removeStage(gri, gi) {
-    this.groups[gi].splice(gri, 1);
+  removeStage(gri) {
+    this.groups[0].splice(gri, 1);
     // console.log(gri, gi);
   }
 

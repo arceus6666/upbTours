@@ -13,6 +13,6 @@ export class AppService {
     this.esAdmin = null;
   }
 
-  login(es: boolean) { this.logged = true; this.esAdmin = es; };
-  logout(es: boolean) { this.logged = false; this.esAdmin = es; };
+  login(es: boolean) { this.logged = true; this.esAdmin = es; }
+  logout() { this.logged = false; this.esAdmin = null; }
 }
