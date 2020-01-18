@@ -11,3 +11,10 @@ export class Estacion {
     this.estado = estado;
   }
 }
+
+export interface IEstacion {
+  id: number;
+  nombre: string;
+  encargado: string;
+  estado: string;
+}
