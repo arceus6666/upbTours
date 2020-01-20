@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { Tour } from '../models/tour.interface';
 
 import { Estacion } from '../models/estacion.interface';
+import { ToursService } from '../tours/tours.service';
 
 // tslint:disable: forin
 
@@ -20,17 +21,23 @@ export class MainViewComponent implements OnInit {
   currentFilter: string = '';
 
   constructor(
-    private _service: ApiService
+    private _service: ApiService,
+    private _toursService: ToursService
   ) { }
 
   ngOnInit() {
-    this._service.getGlobal('tours').subscribe(async (data: { ok: boolean, msg: string, data: Array<Tour> }) => {
-      // console.log(data);
-      this.tours = await data.data;
-      // console.log(this.tours);
-      this.showTours = await data.data;
-      this.currentTour = await this.showTours[0];
-    });
+    // this._service.getGlobal('tours').subscribe(async (data: { ok: boolean, msg: string, data: Array<Tour> }) => {
+    //   // console.log(data);
+    //   this.tours = await data.data;
+    //   // console.log(this.tours);
+    //   this.showTours = await data.data;
+    //   this.currentTour = await this.showTours[0];
+    // });
+    // console.log(this._toursService.tour);
+    if (this._toursService.tour !== null) {
+      this.currentTour = this._toursService.tour;
+      this.showTours = [this.currentTour];
+    }
     // this.tours = this._service.getGlobal('tours').pipe(map((data: { ok: boolean, msg: string, data: Array<Tour> }) => data.data));
     // console.log(this.tours)
   }
@@ -59,24 +66,28 @@ export class MainViewComponent implements OnInit {
   }
 
   stageChange(event: { estacion: Estacion, stage: number, trip: number }) {
-    this._service.putGlobal(`estaciones/${event.estacion.id}`, event.estacion).subscribe((data: any) => {
-      if (data.ok) {
-        for (const t in this.tours) {
-          for (const v in this.tours[t].viajes) {
-            for (const e in this.tours[t].viajes[v].estaciones) {
-              if (this.tours[t].viajes[v].estaciones[e].id === event.estacion.id) {
-                // console.log(t, v, e);
-                this.tours[t].viajes[v].estaciones[e] = event.estacion;
-              }
-            }
-          }
-        }
-        // this.tours[index].viajes[event.trip].estaciones[event.stage] = event.estacion;
-        // this.filter(this.currentFilter);
-        // this.currentTour = this.tours[index];
-        alert('Estación actualizada!');
-      }
-    });
+    const stage = event.stage;
+    const trip = event.trip;
+    console.log(this.currentTour.estaciones[trip][stage]);
+    this.currentTour.estaciones[trip][stage] = event.estacion;
+    // this._service.putGlobal(`estaciones/${event.estacion.id}`, event.estacion).subscribe((data: any) => {
+    //   if (data.ok) {
+    //     for (const t in this.tours) {
+    //       for (const v in this.tours[t].viajes) {
+    //         for (const e in this.tours[t].viajes[v].estaciones) {
+    //           if (this.tours[t].viajes[v].estaciones[e].id === event.estacion.id) {
+    //             // console.log(t, v, e);
+    //             this.tours[t].viajes[v].estaciones[e] = event.estacion;
+    //           }
+    //         }
+    //       }
+    //     }
+    //     // this.tours[index].viajes[event.trip].estaciones[event.stage] = event.estacion;
+    //     // this.filter(this.currentFilter);
+    //     // this.currentTour = this.tours[index];
+    //     alert('Estación actualizada!');
+    //   }
+    // });
     // console.log(event);
   }
 

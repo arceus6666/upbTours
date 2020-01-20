@@ -11,7 +11,7 @@ export class ApiService {
   private backend_url: string;
 
   constructor(private _http: HttpClient) {
-    // change this to http://skynet.lp.upb.edu:7890/ when on build
+    // change this to http://skynet.lp.upb.edu:XXXX/ when on build
     this.backend_url = 'http://localhost:3000/';
   }
 

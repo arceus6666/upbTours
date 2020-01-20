@@ -3,12 +3,14 @@ export class Estacion {
   nombre: string;
   encargado: string;
   estado: string;
+  codigo: string;
 
-  constructor(id, nombre, encargado, estado) {
+  constructor(id, nombre, encargado, estado, codigo) {
     this.id = id;
     this.nombre = nombre;
     this.encargado = encargado;
     this.estado = estado;
+    this.codigo = codigo;
   }
 }
 
@@ -17,4 +19,5 @@ export interface IEstacion {
   nombre: string;
   encargado: string;
   estado: string;
+  codigo: string;
 }

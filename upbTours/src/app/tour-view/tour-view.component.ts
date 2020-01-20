@@ -2,7 +2,6 @@
 
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Tour } from '../models/tour.interface';
-import { Viaje } from '../models/viaje.interface';
 import { Estacion } from '../models/estacion.interface';
 import { ApiService } from '../api.service';
 
@@ -16,7 +15,7 @@ export class TourViewComponent implements OnInit {
   @Input() currentTour: Tour;
   @Output() stageClick = new EventEmitter;
   // viajeInicial: Viaje;
-  // viajes: Array<Viaje> = null;
+  // estaciones: Array<Viaje> = null;
   // estaciones: Array<Estacion> = null;
   // retrievedStages = false;
   // l: number = 0;
@@ -36,19 +35,22 @@ export class TourViewComponent implements OnInit {
     but avoid any serious work here.
     Add '${implements OnChanges}' to the class.
     */
+    // console.log(changes);
     const newCurrentTour = changes.currentTour.currentValue;
-    let maxEstaciones = 0;
-    newCurrentTour.viajes.forEach(v => {
-      const estaciones = v.estaciones.length;
-      maxEstaciones = estaciones > maxEstaciones ? estaciones : maxEstaciones;
-    });
-    this.empty = new Array(maxEstaciones);
+    // let maxEstaciones = 0;
+    console.log(newCurrentTour);
+    if (newCurrentTour === null) {
+      this.empty = null;
+      return;
+    }
+    this.currentTour = newCurrentTour;
+    this.empty = new Array(newCurrentTour.estaciones[0].length);
   }
 
-  cellPressed(estacion: Estacion, stage: number, trip: number) {
-    // console.log(this.currentTour.viajes[trip].estaciones[stage]);
+  cellPressed(estacion: Estacion, stage: number, trip: number, type: string) {
+    // console.log(this.currentTour.estaciones[trip][stage]);
     if (typeof estacion !== 'undefined') {
-      // estacion.est = !estacion.ocupado;
+      estacion.estado = type;
       this.stageClick.emit({ estacion, stage, trip });
     }
     // setTimeout(() => {
@@ -62,7 +64,24 @@ export class TourViewComponent implements OnInit {
     // } else {
     //   return estacion.ocupado ? 'red' : 'green';
     // }
-    return 'white';
+    const est = estacion.estado;
+    switch (est) {
+      case 'camino':
+        return '#ffc107';
+      case 'sala':
+        return 'blue';
+      case 'paso':
+        return 'green';
+      case 'cancelado':
+        return 'red';
+      default:
+        return 'white';
+    }
+    // return 'red';
+  }
+
+  current() {
+    console.log(this.currentTour.estaciones);
   }
 
 }

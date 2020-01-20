@@ -1,31 +1,53 @@
 <!-- <div class="nombre pb-4">
   <h2>{{ this.currentTour.nombre }}</h2>
 </div> -->
-<div class="viajes">
+<div class="estaciones" *ngIf="this.empty !== null">
   <table id="table" class="table table-bordered">
     <thead class="thead-light">
       <tr style="text-align: center">
         <th scope="col">Encargado</th>
-        <th scope="col" *ngFor="let e of this.empty; let i = index">Estación {{i+1}}</th>
+        <th scope="col" *ngFor="let e of this.empty; let i = index">Estación {{ i + 1 }}</th>
       </tr>
     </thead>
     <tbody id="body">
-      <tr *ngFor="let viaje of this.currentTour.viajes; let j = index;">
+      <tr *ngFor="let rrr of this.currentTour.encargados; let j = index;">
         <th scope="row">
-          {{ viaje.encargado }}
+          {{ rrr }}
         </th>
-        <td *ngFor="let e of this.empty; let i = index;" align="center"
-          (click)="cellPressed(viaje.estaciones[i], i, j);"
-          [ngStyle]="{'background-color': this.checkStage(viaje.estaciones[i])}">
-          <ng-container *ngIf="viaje.estaciones[i]; else elseTemplate">
-            {{ viaje.estaciones[i].nombre }}<br />
-            {{ viaje.estaciones[i].encargado }}
-          </ng-container>
-          <ng-template #elseTemplate>
-            ---
-          </ng-template>
+        <!-- (click)="cellPressed(this.currentTour.estaciones[in], i, j);" -->
+        <td *ngFor="let estacion of this.currentTour.estaciones[j]; let in = index" [ngClass]="{
+            'cell-secondary': estacion.estado === 'previsto',
+            'cell-warning': estacion.estado === 'camino',
+            'cell-primary': estacion.estado === 'sala',
+            'cell-success': estacion.estado === 'paso',
+            'cell-danger': estacion.estado === 'cancelado'
+          }" style="text-align: center;">
+          <div class="message">
+            <span class="parent">
+              {{ estacion.nombre }}<br />
+              {{ estacion.encargado }}
+            </span>
+            <section class="speech">
+              <div class="row">
+                <div class="col-md">
+                  <button class="btn btn-outline-secondary"
+                    (click)="cellPressed(estacion, in, j, 'previsto')">Previsto</button>
+                  <button class="btn btn-outline-warning" (click)="cellPressed(estacion, in, j, 'camino')">En
+                    Camino</button>
+                  <button class="btn btn-outline-primary" (click)="cellPressed(estacion, in, j, 'sala')">En
+                    Sala</button>
+                  <button class="btn btn-outline-success" (click)="cellPressed(estacion, in, j, 'paso')">Ya
+                    Pasó</button>
+                  <button class="btn btn-outline-danger"
+                    (click)="cellPressed(estacion, in, j, 'cancelado')">Cancelado</button>
+                </div>
+              </div>
+            </section>
+          </div>
         </td>
       </tr>
     </tbody>
   </table>
+  <!-- asdasd{{this.currentTour.id}}
+  <button (click)="current()">tour</button> -->
 </div>

@@ -13,7 +13,7 @@
 <div *ngIf="this.groups">
 
   <h3>Introduzca el nombre del Tour: </h3>
-  <input class="form-control col-3" type="text" id="tourName"><br />
+  <input class="form-control col-3" type="text" id="tourName" value="Nuevo Tour"><br />
   <!-- <div *ngFor="let g of this.groups; let gi = index;"> -->
   <h4>Seleccione las estaciones:</h4>
   <div id="group" class="border border-danger">
@@ -32,11 +32,11 @@
         </div>
       </div>
     </div>
-    <div class="input-group mb-3 col-6">
+    <div class="input-group mb-3 col-6" *ngFor="let zxc of this.groups; let qwe = index;">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-default">Nombre del encargado:</span>
+        <span class="input-group-text">Encargado {{ qwe + 1 }}:</span>
       </div>
-      <input type="text" class="form-control" id="enc">
+      <input type="text" class="form-control" id="{{'enc'+qwe}}" value="{{'Encargado ' + (qwe + 1)}}">
     </div>
   </div><br />
   <!-- selected here -->
@@ -50,4 +50,5 @@
 </div>
 
 
-<button (click)="showw()"></button>
+<!-- <button (click)="showw()">show</button>
+<button (click)="times()">ts</button> -->
