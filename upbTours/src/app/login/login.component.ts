@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { AppService } from '../app.service';
+import { DataResponse } from '../models/dataresponse.interface';
 
 @Component({
   selector: 'app-login',
@@ -29,10 +30,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.loginForm.value)
-    this._service.postGlobal('usuarios/login', this.loginForm.value).subscribe((data: any) => {
-      // console.log(data)
+    this._service.postGlobal('usuarios/login', this.loginForm.value).subscribe((data: DataResponse) => {
+      console.log(data.data);
       if (data.ok) {
-        this._app.login(data.data.esAdmin);
+        this._app.login(data.data.role);
         this._router.navigateByUrl('/main');
       }
     }, err => {

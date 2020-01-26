@@ -1,6 +1,6 @@
 <table *ngIf="this.showTours !== null">
   <td class="left-panel">
-    <div style="min-width: 350px">
+    <div class="search" style="min-width: 350px">
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search..." #search>
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" (click)="filter(search.value);">
@@ -12,15 +12,20 @@
     <h3 style="width: 350px; text-align: center">TOURS</h3>
     <div class="info" style="width: max-content; min-width: 350px; border: 5px dotted gray">
       <div *ngFor="let tour of this.showTours; let i = index">
-        <button type="button" class="btn btn-light mybtn" (click)="selectTour(i);">
+        <button *ngIf="tour" type="button" class="btn btn-light mybtn" (click)="selectTour(i);">
           {{ tour.nombre }}
         </button><br />
       </div>
     </div>
   </td>
   <td class="right-panel">
-    <div class="border">
-      <div>
+    <div *ngIf="badFilter; else good">
+      <div class="container">
+        <p class="text-center">No hay Tours disponibles</p>
+      </div>
+    </div>
+    <ng-template #good>
+      <div class="border">
         <h1 style="text-align: center">
           {{ this.currentTour.nombre }}
         </h1>
@@ -30,11 +35,19 @@
           <app-tour-view [currentTour]="this.currentTour" (stageClick)="stageChange($event)"></app-tour-view>
         </div>
       </div>
-    </div>
+    </ng-template>
   </td>
 </table>
+
 <div *ngIf="this.showTours === null">
   <div class="container">
     <p class="text-center">No hay Tours disponibles</p>
   </div>
 </div>
+
+<!-- <br>
+<div>
+  <button (click)="pt()">post</button>
+  <button (click)="update()">update</button>
+  <button (click)="delete()">delete</button>
+</div> -->

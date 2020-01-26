@@ -4,6 +4,7 @@ import { Tour } from '../models/tour.interface';
 import { Estacion } from '../models/estacion.interface';
 import { Router } from '@angular/router';
 import { ToursService } from './tours.service';
+import { DataResponse } from '../models/dataresponse.interface';
 // tslint:disable: forin
 
 @Component({
@@ -23,7 +24,6 @@ export class ToursComponent implements OnInit {
 
   cantidad: number;
 
-
   constructor(
     private _apiservice: ApiService,
     private _myservice: ToursService,
@@ -31,28 +31,10 @@ export class ToursComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._apiservice.getGlobal('tours').subscribe(async (data: { ok: boolean, msg: string, data: Array<Tour> }) => {
+    this._apiservice.getGlobal('tours').subscribe(async (data: DataResponse) => {
       // console.log(data);
       this.tours = await data.data;
     });
-    // this._apiservice.getGlobal('estaciones').subscribe((data: any) => {
-    //   const estaciones = data.data;
-    //   let l = estaciones.length;
-    //   this.ll = l;
-    //   // console.log(l);
-    //   l /= 6;
-    //   l = parseInt(l, 10) + 1;
-    //   this.el = l;
-    //   this.estacionesShow = new Array(l);
-    //   let k = 0;
-    //   for (let i = 0; k < estaciones.length; i++) {
-    //     this.estacionesShow[i] = new Array(6);
-    //     for (let j = 0; j < 6 && k < estaciones.length; j++) {
-    //       this.estacionesShow[i][j] = estaciones[k];
-    //       k++;
-    //     }
-    //   }
-    // });
     const estaciones = this._myservice.getEstacionesDefault();
     let l = estaciones.length;
     this.ll = l;
@@ -119,43 +101,37 @@ export class ToursComponent implements OnInit {
     }
 
     const tour: Tour = {
-      id: 1,
+      id: Date.now(),
       nombre: name.value,
       estaciones: this.groups.slice(),
       estado: true,
       encargados: encargados
     };
 
-    console.log(tour);
-    this._myservice.tour = tour;
+    // console.log(JSON.stringify(tour));
+    // this._myservice.tour = tour;
 
+    if (!this.tours) {
+      this.tours = [tour];
+    } else {
+      // this.tours.push(tour);
+      this.tours = [tour, ...this.tours];
+    }
 
-    // for (let i = 0; i < this.groups.length; i++) {
-    // console.log(enc.value);
+    this._apiservice.postGlobal('tours', tour).subscribe((data: DataResponse) => {
+      if (data.ok) {
+        alert('Tour creado!');
+        this._router.navigateByUrl('/main');
+      } else {
+        alert('Error!');
+        console.log(data.msg);
+      }
+    });
+  }
 
-    // setTimeout(() => {
-    // this._service.postGlobal('viajes', {
-    //   encargado: enc.value,
-    //   estaciones: this.groupsid[0]
-    // }).subscribe((data: any) => {
-    //   // console.log(data);
-    //   console.log('Created trip', data.data.id);
-    //   tour.viajes.push(data.data.id);
-    // });
-    // }, 50);
-    // console.log(i + 1, rows);
-    // }
-    // setTimeout(() => {
-    // console.log(tour);
-    // this._service.postGlobal('tours', tour).subscribe((data: any) => {
-    //   if (data.ok) {
-    //     alert('Tour creado');
-    //     this._router.navigate(['/main']);
-    //   }
-    // }, err => {
-    //   console.log(err.error);
-    // });
-    // }, 1000);
+  deleteTour(id) {
+    this.tours = this.tours.filter(t => t.id !== id);
+    this._apiservice.deleteGlobal(`tours/${id}`);
   }
 
   selectStage(stage: Estacion, c, r) {
@@ -169,7 +145,11 @@ export class ToursComponent implements OnInit {
   }
 
   newStage(stage: Estacion) {
-    const s = new Estacion(`${Date.now()}${stage.codigo}`, stage.nombre, stage.encargado, stage.estado, stage.codigo);
+    const s = new Estacion(
+      `${Date.now()}${stage.codigo}`,
+      stage.nombre, stage.encargado,
+      stage.estado, stage.codigo
+    );
     return s;
   }
 

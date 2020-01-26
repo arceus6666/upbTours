@@ -7,19 +7,19 @@
       <button type="button" class="btn btn-light mybtn" (click)="select('usuarios');">
         Editar usuarios
       </button><br />
-      <button type="button" class="btn btn-light mybtn" (click)="select('estaciones');">
+      <!-- <button type="button" class="btn btn-light mybtn" (click)="select('estaciones');">
         Editar estaciones
-      </button><br />
-      <button type="button" class="btn btn-light mybtn" (click)="select('tba');" disabled>
+      </button><br /> -->
+      <!-- <button type="button" class="btn btn-light mybtn" (click)="select('tba');" disabled>
         TBA
-      </button><br />
+      </button><br /> -->
     </div>
   </td>
   <td class="right-panel">
     <div class="border">
       <app-users *ngIf="this.selected==='usuarios'"></app-users>
       <app-tours *ngIf="this.selected==='tours'"></app-tours>
-      <app-stage *ngIf="this.selected==='estaciones'"></app-stage>
+      <!-- <app-stage *ngIf="this.selected==='estaciones'"></app-stage> -->
     </div>
   </td>
 </table>

@@ -1,16 +1,17 @@
 // tslint:disable: forin
 
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Tour } from '../models/tour.interface';
 import { Estacion } from '../models/estacion.interface';
 import { ApiService } from '../api.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-tour-view',
   templateUrl: './tour-view.component.html',
   styleUrls: ['./tour-view.component.css']
 })
-export class TourViewComponent implements OnInit {
+export class TourViewComponent implements OnInit, OnChanges {
 
   @Input() currentTour: Tour;
   @Output() stageClick = new EventEmitter;
@@ -23,7 +24,8 @@ export class TourViewComponent implements OnInit {
   empty: Array<any>;
 
   constructor(
-    private _service: ApiService
+    private _service: ApiService,
+    private _appService: AppService
   ) { }
 
   ngOnInit() {
@@ -38,7 +40,7 @@ export class TourViewComponent implements OnInit {
     // console.log(changes);
     const newCurrentTour = changes.currentTour.currentValue;
     // let maxEstaciones = 0;
-    console.log(newCurrentTour);
+    // console.log(newCurrentTour);
     if (newCurrentTour === null) {
       this.empty = null;
       return;

@@ -5,7 +5,7 @@
 .info {
   height: 500px;
   padding: 5%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .info::-webkit-scrollbar {

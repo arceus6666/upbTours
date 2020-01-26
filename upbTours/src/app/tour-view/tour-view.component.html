@@ -3,7 +3,7 @@
 </div> -->
 <div class="estaciones" *ngIf="this.empty !== null">
   <table id="table" class="table table-bordered">
-    <thead class="thead-light">
+    <thead class="thead-dark">
       <tr style="text-align: center">
         <th scope="col">Encargado</th>
         <th scope="col" *ngFor="let e of this.empty; let i = index">Estación {{ i + 1 }}</th>
@@ -11,23 +11,23 @@
     </thead>
     <tbody id="body">
       <tr *ngFor="let rrr of this.currentTour.encargados; let j = index;">
-        <th scope="row">
+        <th class="table-secondary" scope="row">
           {{ rrr }}
         </th>
         <!-- (click)="cellPressed(this.currentTour.estaciones[in], i, j);" -->
         <td *ngFor="let estacion of this.currentTour.estaciones[j]; let in = index" [ngClass]="{
-            'cell-secondary': estacion.estado === 'previsto',
-            'cell-warning': estacion.estado === 'camino',
-            'cell-primary': estacion.estado === 'sala',
-            'cell-success': estacion.estado === 'paso',
-            'cell-danger': estacion.estado === 'cancelado'
+            'bg-secondary': estacion.estado === 'previsto',
+            'bg-warning': estacion.estado === 'camino',
+            'bg-primary': estacion.estado === 'sala',
+            'bg-success': estacion.estado === 'paso',
+            'bg-danger': estacion.estado === 'cancelado'
           }" style="text-align: center;">
           <div class="message">
             <span class="parent">
               {{ estacion.nombre }}<br />
               {{ estacion.encargado }}
             </span>
-            <section class="speech">
+            <section class="speech" *ngIf="this._appService.role != 'viewer'">
               <div class="row">
                 <div class="col-md">
                   <button class="btn btn-outline-secondary"

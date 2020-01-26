@@ -12,8 +12,8 @@ var userSchema = new Schema({
     type: String,
     required: true
   },
-  esAdmin: {
-    type: Boolean,
+  role: {
+    type: String,
     required: true
   }
 });

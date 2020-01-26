@@ -4,6 +4,7 @@ import { Tour } from '../models/tour.interface';
 
 import { Estacion } from '../models/estacion.interface';
 import { ToursService } from '../tours/tours.service';
+import { DataResponse } from '../models/dataresponse.interface';
 
 // tslint:disable: forin
 
@@ -19,10 +20,13 @@ export class MainViewComponent implements OnInit {
   showTours: Array<Tour> = null;
   currentTour: Tour = null;
   currentFilter: string = '';
+  badFilter: boolean = false;
+
+  testtext = 'empty';
 
   constructor(
     private _service: ApiService,
-    private _toursService: ToursService
+    // private _toursService: ToursService
   ) { }
 
   ngOnInit() {
@@ -33,11 +37,17 @@ export class MainViewComponent implements OnInit {
     //   this.showTours = await data.data;
     //   this.currentTour = await this.showTours[0];
     // });
-    // console.log(this._toursService.tour);
-    if (this._toursService.tour !== null) {
-      this.currentTour = this._toursService.tour;
-      this.showTours = [this.currentTour];
-    }
+    // let locals;
+    this._service.getGlobal('tours').subscribe(async (data: DataResponse) => {
+      // console.log(data);
+      const locals = await data.data;
+      if (locals !== null) {
+        this.currentTour = locals[0];
+        this.tours = locals;
+        this.showTours = locals;
+      }
+    });
+    // console.log(locals);
     // this.tours = this._service.getGlobal('tours').pipe(map((data: { ok: boolean, msg: string, data: Array<Tour> }) => data.data));
     // console.log(this.tours)
   }
@@ -46,17 +56,29 @@ export class MainViewComponent implements OnInit {
     txt = this.clean(txt);
     this.currentFilter = txt;
     // console.log(txt);
-    this.showTours = this.tours.filter((tour: Tour) => this.clean(tour.nombre).indexOf(txt) !== -1);
-    this.currentTour = this.showTours[0];
+    const filtered = this.tours.filter(tour => this.clean(tour.nombre).indexOf(txt) !== -1);
+    // console.log(filtered);
+    // if () {
+    //   this.badFilter = true;
+    // } else {
+    //   this.badFilter = false;
+    // }
+    this.badFilter = filtered.length === 0;
+    this.showTours = filtered;
+    this.currentTour = this.showTours[0] || null;
   }
 
   clean(str: string): string {
     let res = str.toLowerCase();
-    res = res.replace(/[àáäâ]/g, 'a');
-    res = res.replace(/[èéëê]/g, 'e');
-    res = res.replace(/[ìíïî]/g, 'i');
-    res = res.replace(/[òóöô]/g, 'o');
-    res = res.replace(/[ùúüû]/g, 'u');
+    res = res.replace(/[àáäâ]/g, 'a')
+      .replace(/[èéëê]/g, 'e')
+      .replace(/[ìíïî]/g, 'i')
+      .replace(/[òóöô]/g, 'o')
+      .replace(/[ùúüû]/g, 'u');
+    // res = res.replace(/[èéëê]/g, 'e');
+    // res = res.replace(/[ìíïî]/g, 'i');
+    // res = res.replace(/[òóöô]/g, 'o');
+    // res = res.replace(/[ùúüû]/g, 'u');
     return res;
   }
 
@@ -68,8 +90,11 @@ export class MainViewComponent implements OnInit {
   stageChange(event: { estacion: Estacion, stage: number, trip: number }) {
     const stage = event.stage;
     const trip = event.trip;
-    console.log(this.currentTour.estaciones[trip][stage]);
+    // console.log(this.currentTour.estaciones[trip][stage]);
     this.currentTour.estaciones[trip][stage] = event.estacion;
+    this._service.putGlobal(`tours/${this.currentTour.id}`, this.currentTour).subscribe((data: DataResponse) => {
+      console.log(data);
+    });
     // this._service.putGlobal(`estaciones/${event.estacion.id}`, event.estacion).subscribe((data: any) => {
     //   if (data.ok) {
     //     for (const t in this.tours) {
@@ -89,6 +114,18 @@ export class MainViewComponent implements OnInit {
     //   }
     // });
     // console.log(event);
+  }
+
+  pt() {
+    // this._service.postGlobal('tours/test', {});
+  }
+
+  update() {
+    // this._toursService.texttest = 'changed';
+  }
+
+  delete() {
+    // this._service.deleteGlobal('tours/1');
   }
 
 }

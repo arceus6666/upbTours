@@ -8,11 +8,14 @@ import { AppService } from './app.service';
 })
 export class AppComponent {
   title = 'upbTours';
-  logged = this._service.logged;
-  esAdmin = this._service.esAdmin;
+  // logged = this._service.logged;
+  // role = this._service.role;
 
   constructor(
     private _service: AppService
-  ) { }
+  ) {
+    // this.role = this._service.role;
+    // this.logged = this._service.logged;
+  }
 
 }

@@ -1,31 +1,42 @@
 <div class="m-1">
   <h3>Usuarios</h3>
 </div>
-<div class="form-row" *ngFor="let u of users">
-  <div class="col-md-4 mb-3">
-    <!-- <label for="validationTooltipUsername">Username</label> -->
+<div class="form-row" *ngFor="let u of users; let i = index;">
+  <div class="col-md-3 mb-3">
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="codigoPrepend"><i class="fas fa-user"></i></span>
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
       </div>
-      <input type="text" class="form-control" id="codigo" value="{{u.codigo}}" disabled>
+      <input type="text" class="form-control" value="{{u.codigo}}" disabled>
     </div>
   </div>
-  <div class="col-md-4 mb-3">
-    <!-- <label for="validationTooltipUsername">Username</label> -->
+  <div class="col-md-3 mb-3">
     <div class="input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="passPrepend"><i class="fas fa-key"></i></span>
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
       </div>
-      <input type="text" class="form-control" id="pass" value="{{u.password}}" disabled>
+      <input type="text" class="form-control" value="{{u.password}}" disabled>
     </div>
   </div>
-  <div class="custom-control custom-switch col-md-2 mb-3 ml-5 pt-2">
+  <!-- <div class="custom-control custom-switch col-md-2 mb-3 ml-5 pt-2">
     <input type="checkbox" class="custom-control-input" id="customSwitch" [checked]="u.esAdmin" (change)="change(u);">
     <label class="custom-control-label" for="customSwitch">Administrador</label>
+  </div> -->
+  <div class="col-md-3 mb-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+      </div>
+      <input type="text" class="form-control" id="role{{i}}" value="{{u.role}}">
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <button class="btn btn-success" (click)="change(u, i)"><i class="fas fa-edit"></i></button>&nbsp;
+    <button class="btn btn-danger" (click)="remove(u)"><i class="fas fa-trash-alt"></i></button>
   </div>
 </div>
 <div class="dropdown-divider"></div>
+
 <div class="mt-3">
   <div class="m-1">
     <h3>Añadir usuario</h3>
@@ -33,13 +44,11 @@
   <form class="px-4 py-3" name="userForm" [formGroup]="userForm">
     <div class="form-group">
       <label for="code1">Código</label>
-      <input type="number" class="form-control" id="code1" placeholder="12345"
-        formControlName="codigo">
+      <input type="number" class="form-control" id="code1" placeholder="12345" formControlName="codigo">
     </div>
     <div class="form-group">
       <label for="pass1">Contraseña</label>
-      <input type="text" class="form-control" id="pass1" placeholder="Password"
-        formControlName="password">
+      <input type="text" class="form-control" id="pass1" placeholder="Password" formControlName="password">
     </div>
     <button type="submit" class="btn btn-secondary" (click)="onSubmit()">Crear</button>
   </form>

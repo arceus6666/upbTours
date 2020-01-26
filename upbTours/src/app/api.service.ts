@@ -15,38 +15,26 @@ export class ApiService {
     this.backend_url = 'http://localhost:3000/';
   }
 
-  getGlobal<Object>(
-    url: string
-  ): Observable<Object> {
+  public getGlobal<Object>(url: string): Observable<Object> {
     return this._http.get<Object>(`${this.backend_url}${url}`, {
       headers: { 'Content-Type': 'application/json' }
     }).pipe(map((data: any) => data));
   }
 
-  postGlobal<Object>(
-    url: string,
-    body: any
-  ) {
-    body = JSON.stringify(body);
-    return this._http.post<Object>(`${this.backend_url}${url}`, body, {
+  public postGlobal<Object>(url: string, body: any) {
+    return this._http.post<Object>(`${this.backend_url}${url}`, JSON.stringify(body), {
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  deleteGlobal<Object>(
-    url: string
-  ) {
+  public putGlobal<Object>(url: string, body: any) {
+    return this._http.put<Object>(`${this.backend_url}${url}`, JSON.stringify(body), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  public deleteGlobal<Object>(url: string) {
     return this._http.delete<Object>(`${this.backend_url}${url}`, {
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-
-  putGlobal<Object>(
-    url: string,
-    body: any
-  ) {
-    body = JSON.stringify(body);
-    return this._http.put<Object>(`${this.backend_url}${url}`, body, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

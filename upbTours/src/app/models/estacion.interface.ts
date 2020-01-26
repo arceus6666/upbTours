@@ -1,5 +1,5 @@
 export class Estacion {
-  id: number;
+  id: string;
   nombre: string;
   encargado: string;
   estado: string;
@@ -15,7 +15,7 @@ export class Estacion {
 }
 
 export interface IEstacion {
-  id: number;
+  id: string;
   nombre: string;
   encargado: string;
   estado: string;

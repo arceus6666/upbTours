@@ -12,7 +12,7 @@ export class StageComponent implements OnInit {
   // estaciones: Array<Estacion> = null;
   estacionesShow: Array<Array<Estacion>> = null;
   editar: boolean = false;
-  index: number = null;
+  index: string = null;
   el = 0;
   ll = 0;
 
