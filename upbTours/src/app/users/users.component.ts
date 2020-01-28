@@ -36,9 +36,35 @@ export class UsersComponent implements OnInit {
     this._apiService.deleteGlobal(`usuarios/${user.codigo}`).subscribe((data: DataResponse) => {
       console.log(data);
       if (data.ok) {
+        this.users = this.users.filter((u: User) => u.codigo !== user.codigo);
         alert('Usuario eliminado');
       }
     });
+  }
+
+  changeRole(user, index, role) {
+    let tr = 'Visitante';
+    switch (role) {
+      case 0:
+        tr = 'Visitante';
+        break;
+      case 1:
+        tr = 'Usuario';
+        break;
+      case 2:
+        tr = 'Administrador';
+        break;
+    }
+    document.getElementById(`role${index}`).innerText = tr;
+    user.role = role;
+  }
+
+  getRole(role) {
+    switch(role){
+      case 0: return 'Visitante';
+      case 1: return 'Usuario';
+      case 2: return 'Administrador';
+    }
   }
 
   change(user: User, index: number) {
@@ -46,17 +72,18 @@ export class UsersComponent implements OnInit {
     user.role = role.value;
     // console.log(user, role.value);
 
-    this._apiService.putGlobal('usuarios', user).subscribe((data: any) => {
+    this._apiService.putGlobal('usuarios', user).subscribe((data: DataResponse) => {
       if (data.ok) {
-        this.users = this.users.filter((u: User) => u.codigo !== user.codigo);
         alert('Usuario actualizado');
       }
     });
   }
 
   onSubmit() {
-    this._apiService.postGlobal('usuarios/add', this.userForm.value).subscribe((data: any) => {
+    this._apiService.postGlobal('usuarios/add', this.userForm.value).subscribe((data: DataResponse) => {
       if (data.ok) {
+        console.log(data.data);
+        console.log(this.userForm.value);
         this.users.push(data.data);
         alert('Usuario creado.');
       }

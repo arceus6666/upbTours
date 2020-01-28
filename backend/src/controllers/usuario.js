@@ -4,12 +4,12 @@ function add(req, res) {
   const usuario = new Usuario({
     codigo: req.body.codigo,
     password: req.body.password,
-    role: req.body.role || 'viewer'
+    role: req.body.role || 0
   });
 
-  usuario.save().then(usuario => {
-    res.send({ msg: 'Created', ok: true, data: usuario });
-  }, err => {
+  usuario.save().then(function (u) {
+    res.send({ msg: 'Created', ok: true, data: u });
+  }, function (err) {
     res.send({ msg: err, ok: false, data: null });
   });
 }
@@ -34,7 +34,6 @@ function login(req, res) {
 }
 
 function update(req, res) {
-  // console.log(req.body);
   const { codigo, password, role } = req.body;
   Usuario.findOne({ codigo: codigo }, function (err, usuario) {
     if (err) {
@@ -44,9 +43,9 @@ function update(req, res) {
     } else {
       usuario.password = password;
       usuario.role = role;
-      usuario.save().then(usuario => {
+      usuario.save().then(function (usuario) {
         res.send({ msg: 'Updated', ok: true, data: usuario });
-      }, err => {
+      }, function (err) {
         res.send({ msg: err, ok: false, data: null });
       });
     }

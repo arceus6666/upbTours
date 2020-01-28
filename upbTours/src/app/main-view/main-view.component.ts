@@ -30,7 +30,8 @@ export class MainViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this._service.getGlobal('tours').subscribe(async (data: { ok: boolean, msg: string, data: Array<Tour> }) => {
+    // this._service.getGlobal('tours')
+    //  .subscribe(async (data: { ok: boolean, msg: string, data: Array<Tour> }) => {
     //   // console.log(data);
     //   this.tours = await data.data;
     //   // console.log(this.tours);
@@ -48,7 +49,8 @@ export class MainViewComponent implements OnInit {
       }
     });
     // console.log(locals);
-    // this.tours = this._service.getGlobal('tours').pipe(map((data: { ok: boolean, msg: string, data: Array<Tour> }) => data.data));
+    // this.tours = this._service.getGlobal('tours')
+    //  .pipe(map((data: { ok: boolean, msg: string, data: Array<Tour> }) => data.data));
     // console.log(this.tours)
   }
 
@@ -92,28 +94,12 @@ export class MainViewComponent implements OnInit {
     const trip = event.trip;
     // console.log(this.currentTour.estaciones[trip][stage]);
     this.currentTour.estaciones[trip][stage] = event.estacion;
-    this._service.putGlobal(`tours/${this.currentTour.id}`, this.currentTour).subscribe((data: DataResponse) => {
+    this._service.putGlobal(
+      `tours/${this.currentTour.id}`,
+      this.currentTour
+    ).subscribe((data: DataResponse) => {
       console.log(data);
     });
-    // this._service.putGlobal(`estaciones/${event.estacion.id}`, event.estacion).subscribe((data: any) => {
-    //   if (data.ok) {
-    //     for (const t in this.tours) {
-    //       for (const v in this.tours[t].viajes) {
-    //         for (const e in this.tours[t].viajes[v].estaciones) {
-    //           if (this.tours[t].viajes[v].estaciones[e].id === event.estacion.id) {
-    //             // console.log(t, v, e);
-    //             this.tours[t].viajes[v].estaciones[e] = event.estacion;
-    //           }
-    //         }
-    //       }
-    //     }
-    //     // this.tours[index].viajes[event.trip].estaciones[event.stage] = event.estacion;
-    //     // this.filter(this.currentFilter);
-    //     // this.currentTour = this.tours[index];
-    //     alert('Estación actualizada!');
-    //   }
-    // });
-    // console.log(event);
   }
 
   pt() {

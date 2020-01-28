@@ -31,15 +31,23 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     // console.log(this.loginForm.value)
     this._service.postGlobal('usuarios/login', this.loginForm.value).subscribe((data: DataResponse) => {
-      console.log(data.data);
+      console.log(data);
       if (data.ok) {
         this._app.login(data.data.role);
         this._router.navigateByUrl('/main');
+      } else {
+        (document.getElementById('passid') as HTMLInputElement).value = '';
+        if (data.msg === 'Wrong password') {
+          alert('Contraseña incorrecta!');
+        } else if (data.msg === 'User not found') {
+          alert('Usuario inexistente');
+        } else {
+          alert(`Error desconocido\n${data.msg}`);
+        }
       }
     }, err => {
-      if (err.error.msg === 'Wrong password') {
-        alert('Contraseña incorrecta!');
-      }
+      console.log(err);
+      alert(`Error desconocido\n${err}`);
     });
   }
 

@@ -15,7 +15,13 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-key"></i></span>
       </div>
-      <input type="text" class="form-control" value="{{u.password}}" disabled>
+      <ng-container *ngIf="u.role > 1; else elseinput">
+        <input type="text" class="form-control" value="{{u.password}}" disabled>
+      </ng-container>
+      <ng-template #elseinput>
+        <input type="text" class="form-control" value="{{u.password}}">
+      </ng-template>
+      
     </div>
   </div>
   <!-- <div class="custom-control custom-switch col-md-2 mb-3 ml-5 pt-2">
@@ -24,12 +30,21 @@
   </div> -->
   <div class="col-md-3 mb-3">
     <div class="input-group">
-      <div class="input-group-prepend">
+      <!-- <div class="input-group-prepend"> -->
         <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+      <!-- </div> -->
+      <!-- <input type="text" class="form-control" id="role{{i}}" value="{{u.role}}"> -->
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" id="role{{i}}" value="{{u.role}}" style="min-width: 150px;">{{getRole(u.role)}}</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" (click)="changeRole(u, i, 2)">Administrador</a>
+          <a class="dropdown-item" (click)="changeRole(u, i, 1)">Usuario</a>
+          <a class="dropdown-item" (click)="changeRole(u, i, 0)">Visitante</a>
+        </div>
       </div>
-      <input type="text" class="form-control" id="role{{i}}" value="{{u.role}}">
     </div>
   </div>
+
   <div class="col-md-3 mb-3">
     <button class="btn btn-success" (click)="change(u, i)"><i class="fas fa-edit"></i></button>&nbsp;
     <button class="btn btn-danger" (click)="remove(u)"><i class="fas fa-trash-alt"></i></button>

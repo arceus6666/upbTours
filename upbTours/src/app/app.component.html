@@ -7,7 +7,7 @@
       <li class="nav-item" *ngIf="this._service.logged">
         <a class="nav-link" [routerLink]="['/main']">Página principal</a>
       </li>
-      <li class="nav-item" *ngIf="this._service.role === 'admin'">
+      <li class="nav-item" *ngIf="this._service.role > 1">
         <a class="nav-link" [routerLink]="['/admin']">Administrador</a>
       </li>
       <li class="nav-item" *ngIf="this._service.logged">

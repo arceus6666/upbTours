@@ -20,58 +20,11 @@ mongoose.set('useUnifiedTopology', true);
 const port = 3000;
 const mongouri = process.env.MONGODB_URI || 'mongodb://localhost:27017/upbtours';
 
-function clean(txt) {
-  var t = `${txt}`;
-  const blank = [
-    '',
-    ' ',
-    '  ',
-    '   ',
-    '    ',
-    '     ',
-    '      ',
-    '       ',
-    '        ',
-    '         ',
-    '          ',
-    '           ',
-    '            ',
-    '             ',
-    '              ',
-    '               ',
-    '                ',
-    '                 ',
-    '                  ',
-    '                   ',
-    '                    ',
-    '                     ',
-    '                      ',
-    '                       ',
-    '                        ',
-    '                         ',
-  ];
-
-  const l = t.length;
-  if (l > 25) {
-    t = t.slice(0, 22);
-    t += '...';
-  } else {
-    const ll = 25 - l;
-    t += blank[ll];
-  }
-  return t;
-}
-
 mongoose.connect(mongouri, (err, res) => {
   if (err) {
     console.log(`There was an error initializing:\n\t${err}.`);
   } else {
-    console.log(`+---------------------------------+`);
-    console.log(`| MongoDB connection established. |`);
-    console.log(`| Name: ${clean(res.name)} |`);
-    console.log(`| Host: ${clean(res.host)} |`);
-    console.log(`| Port: ${clean(res.port)} |`);
-    console.log(`+---------------------------------+\n`);
+    console.log(`MongoDB connection established.`);
     app.listen(port, () => {
       console.log(`App listening on port: ${port}`);
     });

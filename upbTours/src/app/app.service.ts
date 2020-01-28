@@ -6,14 +6,14 @@ import { Injectable } from '@angular/core';
 export class AppService {
 
   logged: boolean;
-  role: string;
+  role: number;
 
   constructor() {
     this.logged = false;
     this.role = null;
   }
 
-  login(r: string) {
+  login(r: number) {
     this.logged = true;
     this.role = r;
   }

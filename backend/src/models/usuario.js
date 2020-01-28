@@ -13,7 +13,7 @@ var userSchema = new Schema({
     required: true
   },
   role: {
-    type: String,
+    type: Number,
     required: true
   }
 });
