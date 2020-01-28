@@ -35,22 +35,28 @@ export class ToursComponent implements OnInit {
       // console.log(data);
       this.tours = await data.data;
     });
-    const estaciones = this._myservice.getEstacionesDefault();
-    let l = estaciones.length;
-    this.ll = l;
-    // console.log(l);
-    l /= 6;
-    l = parseInt(`${l}`, 10) + 1;
-    this.el = l;
-    this.estacionesShow = new Array(l);
-    let k = 0;
-    for (let i = 0; k < estaciones.length; i++) {
-      this.estacionesShow[i] = new Array(6);
-      for (let j = 0; j < 6 && k < estaciones.length; j++) {
-        this.estacionesShow[i][j] = estaciones[k];
-        k++;
+    this._apiservice.getGlobal('estaciones').subscribe(async (data: DataResponse) => {
+      if (!data.ok) {
+        alert('Unknown error ocurred, contact your administrator!');
+        return;
       }
-    }
+      const estaciones = (data.data as Array<Estacion>).sort((a, b) => a.nombre < b.nombre ? -1 : (a.nombre > b.nombre ? 1 : 0));
+      let l = estaciones.length;
+      this.ll = l;
+      // console.log(l);
+      l /= 6;
+      l = parseInt(`${l}`, 10) + 1;
+      this.el = l;
+      this.estacionesShow = new Array(l);
+      let k = 0;
+      for (let i = 0; k < estaciones.length; i++) {
+        this.estacionesShow[i] = new Array(6);
+        for (let j = 0; j < 6 && k < estaciones.length; j++) {
+          this.estacionesShow[i][j] = estaciones[k];
+          k++;
+        }
+      }
+    });
   }
 
   setGroups(g: string) {

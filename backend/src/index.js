@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-// app.use('/estaciones', require(path.join(__dirname, './routes/estaciones')));
+app.use('/estaciones', require(path.join(__dirname, './routes/estaciones')));
 // app.use('/viajes', require(path.join(__dirname, './routes/viajes')));
 app.use('/tours', require(path.join(__dirname, './routes/tours')));
 app.use('/usuarios', require(path.join(__dirname, './routes/usuarios')));

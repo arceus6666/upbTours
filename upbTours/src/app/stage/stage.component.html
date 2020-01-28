@@ -1,4 +1,4 @@
-<div *ngIf="this.estacionesShow">
+<!-- <div *ngIf="this.estacionesShow">
   <div class="form-row">
     <div class="form-group col-md-4"></div>
     <div class="form-group col-md-4">
@@ -54,6 +54,79 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="m-1">
+  <h3>Estaciones</h3>
+</div>
+
+<div class="form-row pb-3" *ngFor="let item of estaciones; let i = index;">
+  <div class="col-md-3 mb-3">
+    <div class="input-group">
+      <div class="input-group-text">Nombre</div>
+      <div class="input-group-prepend">
+      </div>
+      <input type="text" class="form-control" id="name{{i}}" value="{{item.nombre}}">
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="input-group">
+      <div class="input-group-text">Encargado</div>
+      <div class="input-group-prepend">
+      </div>
+      <input type="text" class="form-control" id="charge{{i}}" value="{{item.encargado}}">
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="input-group">
+      <div class="input-group-text">Código</div>
+      <div class="input-group-prepend">
+      </div>
+      <input type="text" class="form-control" id="code{{i}}" value="{{item.codigo}}">
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <button class="btn btn-success" (click)="edit(i)"><i class="fas fa-edit"></i></button>
+    &nbsp;
+    <button class="btn btn-danger" (click)="remove(item.codigo)"><i class="fas fa-trash-alt"></i></button>
+  </div>
+</div>
+
+<div class="dropdown-divider"></div>
+
+<div class="mt-3">
+  <div class="m-1">
+    <h3>Añadir usuario</h3>
+  </div>
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <div class="input-group">
+        <div class="input-group-text">Nombre</div>
+        <div class="input-group-prepend">
+        </div>
+        <input type="text" class="form-control" id="newname">
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="input-group">
+        <div class="input-group-text">Encargado</div>
+        <div class="input-group-prepend">
+        </div>
+        <input type="text" class="form-control" id="newcharge">
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="input-group">
+        <div class="input-group-text">Código</div>
+        <div class="input-group-prepend">
+        </div>
+        <input type="text" class="form-control" id="newcode">
+      </div>
+    </div>
+    <div class="form-group col-md-3 mb-3">
+      <button class="btn btn-secondary" (click)="crear()">Crear</button>
     </div>
   </div>
 </div>

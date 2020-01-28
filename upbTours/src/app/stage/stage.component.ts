@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Estacion } from '../models/estacion.interface';
+import { IEstacion } from '../models/estacion.interface';
+import { DataResponse } from '../models/dataresponse.interface';
 
 @Component({
   selector: 'app-stage',
@@ -9,12 +10,8 @@ import { Estacion } from '../models/estacion.interface';
 })
 export class StageComponent implements OnInit {
 
-  // estaciones: Array<Estacion> = null;
-  estacionesShow: Array<Array<Estacion>> = null;
+  estaciones: Array<IEstacion> = null;
   editar: boolean = false;
-  index: string = null;
-  el = 0;
-  ll = 0;
 
   nombre: string;
   encargado: string;
@@ -25,58 +22,54 @@ export class StageComponent implements OnInit {
 
   ngOnInit() {
     this._service.getGlobal('estaciones').subscribe((data: any) => {
-      // this.estaciones = data.data;
-      const estaciones = data.data;
-      let l = estaciones.length;
-      this.ll = l;
-      l /= 3;
-      l = parseInt(l, 10) + 1;
-      this.el = l;
-      this.estacionesShow = new Array(l);
-      let k = 0;
-      for (let i = 0; k < estaciones.length; i++) {
-        this.estacionesShow[i] = new Array(3);
-        for (let j = 0; j < 3 && k < estaciones.length; j++) {
-          this.estacionesShow[i][j] = estaciones[k];
-          k++;
-        }
+      this.estaciones = data.data.sort(
+        (a, b) => a.nombre < b.nombre ? -1 : a.nombre > b.nombre ? 1 : 0
+      );
+    });
+  }
+
+  edit(index: number) {
+    // const id = this.estaciones[index].id;
+    const nombre = (document.getElementById(`name${index}`) as HTMLInputElement).value;
+    const encargado = (document.getElementById(`charge${index}`) as HTMLInputElement).value;
+    const codigo = (document.getElementById(`code${index}`) as HTMLInputElement).value;
+    // const estado = this.estaciones[index].estado;
+    this.estaciones[index] = { nombre, encargado, codigo };
+    this._service.putGlobal(`estaciones/${codigo}`, {
+      nombre,
+      encargado,
+      codigo
+    }).subscribe((data: DataResponse) => {
+      console.log(data.data);
+      if (data.ok) {
+        alert('Estación actualizada.');
       }
     });
   }
 
-  edit(stage: Estacion) {
-    this.editar = true;
-    this.index = stage.id;
-    this.nombre = stage.nombre;
-    this.encargado = stage.encargado;
-  }
-
-  accept(c: number, r: number) {
-    this.estacionesShow[r][c].nombre = this.nombre;
-    this.estacionesShow[r][c].encargado = this.encargado;
-    setTimeout(() => {
-      this._service.putGlobal(`estaciones/${this.estacionesShow[r][c].id}`, this.estacionesShow[r][c]).subscribe((data: any) => {
-        if (data.ok) {
-          alert('Editado correctamente');
-        }
-      });
-    }, 50);
-    this.nombre = null;
-    this.encargado = null;
-    this.editar = false;
-    this.index = null;
-  }
-
-  crear(nombre: string, encargado: string) {
-    // console.log(nombre, encargado);
-    this._service.postGlobal('estaciones', { nombre, encargado }).subscribe((data: any) => {
+  crear() {
+    const nombre = (document.getElementById(`newname`) as HTMLInputElement).value;
+    const encargado = (document.getElementById(`newcharge`) as HTMLInputElement).value;
+    const codigo = (document.getElementById(`newcode`) as HTMLInputElement).value;
+    this._service.postGlobal('estaciones', {
+      nombre,
+      encargado,
+      codigo
+    }).subscribe((data: DataResponse) => {
       if (data.ok) {
-        // this.estacionesShow[this.el - 1].push(data.data);
-        // this.ll++;
+        this.estaciones.push({ nombre, encargado, codigo });
         alert('Estación creada.');
       }
     });
-    // console.log(this.estacionesShow[this.el - 1]);
+  }
+
+  remove(codigo: string) {
+    this._service.deleteGlobal(`estaciones/${codigo}`).subscribe((data: DataResponse) => {
+      if (data.ok) {
+        this.estaciones = this.estaciones.filter(s => s.codigo !== codigo);
+        alert('Estación eliminada.');
+      }
+    });
   }
 
 }

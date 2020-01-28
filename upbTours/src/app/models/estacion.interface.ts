@@ -15,9 +15,9 @@ export class Estacion {
 }
 
 export interface IEstacion {
-  id: string;
+  id?: string;
+  estado?: string;
   nombre: string;
   encargado: string;
-  estado: string;
   codigo: string;
 }
