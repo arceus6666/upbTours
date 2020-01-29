@@ -42,7 +42,7 @@ export class MainViewComponent implements OnInit {
     // });
     // let locals;
     this._apiService.getGlobal('tours').subscribe(async (data: DataResponse) => {
-      console.log(data);
+      // console.log(data);
       const locals = await data.data;
       if (locals !== null && locals.length > 0) {
         this.currentTour = locals[0];

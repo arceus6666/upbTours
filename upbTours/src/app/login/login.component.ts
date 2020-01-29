@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     // console.log(this.loginForm.value)
     this._service.postGlobal('usuarios/login', this.loginForm.value).subscribe((data: DataResponse) => {
-      console.log(data);
+      // console.log(data);
       if (data.ok) {
         this._app.login(data.data.role);
         this._router.navigateByUrl('/main');
