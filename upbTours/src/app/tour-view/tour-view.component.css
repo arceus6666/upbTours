@@ -64,7 +64,7 @@ table {
   display: none;
   position: absolute;
   /* top: 20em; */
-  /* left: 4em; */
+  left: 0;
   /* bottom: 100em; */
   padding: 5px;
   /* padding-top: 50px; */
