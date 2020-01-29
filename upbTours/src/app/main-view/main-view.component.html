@@ -35,7 +35,7 @@
           <app-tour-view [currentTour]="this.currentTour" (stageClick)="stageChange($event)"></app-tour-view>
         </div>
         <br>
-        <button class="btn btn-danger m-3">Eliminar</button>
+        <button *ngIf="this._appService.role > 1" class="btn btn-danger m-3" (click)="delete()">Eliminar</button>
       </div>
 
     </ng-template>

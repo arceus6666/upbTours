@@ -5,6 +5,7 @@ import { Tour } from '../models/tour.interface';
 import { Estacion } from '../models/estacion.interface';
 import { ToursService } from '../tours/tours.service';
 import { DataResponse } from '../models/dataresponse.interface';
+import { AppService } from '../app.service';
 
 // tslint:disable: forin
 
@@ -25,7 +26,8 @@ export class MainViewComponent implements OnInit {
   testtext = 'empty';
 
   constructor(
-    private _service: ApiService,
+    private _apiService: ApiService,
+    public _appService: AppService
     // private _toursService: ToursService
   ) { }
 
@@ -39,7 +41,7 @@ export class MainViewComponent implements OnInit {
     //   this.currentTour = await this.showTours[0];
     // });
     // let locals;
-    this._service.getGlobal('tours').subscribe(async (data: DataResponse) => {
+    this._apiService.getGlobal('tours').subscribe(async (data: DataResponse) => {
       // console.log(data);
       const locals = await data.data;
       if (locals !== null) {
@@ -94,7 +96,7 @@ export class MainViewComponent implements OnInit {
     const trip = event.trip;
     // console.log(this.currentTour.estaciones[trip][stage]);
     this.currentTour.estaciones[trip][stage] = event.estacion;
-    this._service.putGlobal(
+    this._apiService.putGlobal(
       `tours/${this.currentTour.id}`,
       this.currentTour
     ).subscribe((data: DataResponse) => {
@@ -111,14 +113,15 @@ export class MainViewComponent implements OnInit {
   }
 
   delete() {
-    this._service.deleteGlobal(`tours/${this.currentTour.id}`).subscribe((data: DataResponse) => {
+    this._apiService.deleteGlobal(`tours/${this.currentTour.id}`).subscribe((data: DataResponse) => {
       if (data.ok) {
+        const name = this.currentTour.nombre;
         this.showTours = this.showTours.filter(t => t.id !== this.currentTour.id);
         if (this.showTours.length === 0) {
           this.showTours = this.tours;
         }
         this.currentTour = this.showTours[0];
-        alert(`Tour "${this.currentTour.nombre}" eliminado.`);
+        alert(`Tour "${name}" eliminado.`);
       } else {
         alert('Error. Intente de nuevo más tarde.');
       }

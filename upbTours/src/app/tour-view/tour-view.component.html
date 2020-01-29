@@ -16,7 +16,7 @@
         </th>
         <!-- (click)="cellPressed(this.currentTour.estaciones[in], i, j);" -->
         <td *ngFor="let estacion of this.currentTour.estaciones[j]; let in = index" [ngClass]="{
-            'bg-secondary': estacion.estado === 'previsto',
+            'bg-light': estacion.estado === 'previsto',
             'bg-warning': estacion.estado === 'camino',
             'bg-primary': estacion.estado === 'sala',
             'bg-success': estacion.estado === 'paso',
