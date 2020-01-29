@@ -42,9 +42,9 @@ export class MainViewComponent implements OnInit {
     // });
     // let locals;
     this._apiService.getGlobal('tours').subscribe(async (data: DataResponse) => {
-      // console.log(data);
+      console.log(data);
       const locals = await data.data;
-      if (locals !== null) {
+      if (locals !== null && locals.length > 0) {
         this.currentTour = locals[0];
         this.tours = locals;
         this.showTours = locals;
@@ -116,11 +116,18 @@ export class MainViewComponent implements OnInit {
     this._apiService.deleteGlobal(`tours/${this.currentTour.id}`).subscribe((data: DataResponse) => {
       if (data.ok) {
         const name = this.currentTour.nombre;
-        this.showTours = this.showTours.filter(t => t.id !== this.currentTour.id);
+        const id = this.currentTour.id;
+        this.tours = this.tours.filter(t => t.id !== id);
+        this.showTours = this.showTours.filter(t => t.id !== id);
         if (this.showTours.length === 0) {
           this.showTours = this.tours;
         }
-        this.currentTour = this.showTours[0];
+        if (this.showTours.length > 0) {
+          this.currentTour = this.showTours[0];
+        } else {
+          this.showTours = null;
+          this.currentTour = null;
+        }
         alert(`Tour "${name}" eliminado.`);
       } else {
         alert('Error. Intente de nuevo más tarde.');
