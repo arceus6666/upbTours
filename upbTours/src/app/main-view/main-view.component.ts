@@ -19,7 +19,7 @@ export class MainViewComponent implements OnInit {
   // tours: any = null;
   showTours: Array<Tour> = null;
   currentTour: Tour = null;
-  currentFilter: string = '';
+  // currentFilter: string = '';
   badFilter: boolean = false;
 
   testtext = 'empty';
@@ -56,7 +56,7 @@ export class MainViewComponent implements OnInit {
 
   filter(txt: string) {
     txt = this.clean(txt);
-    this.currentFilter = txt;
+    // this.currentFilter = txt;
     // console.log(txt);
     const filtered = this.tours.filter(tour => this.clean(tour.nombre).indexOf(txt) !== -1);
     // console.log(filtered);
@@ -111,7 +111,18 @@ export class MainViewComponent implements OnInit {
   }
 
   delete() {
-    // this._service.deleteGlobal('tours/1');
+    this._service.deleteGlobal(`tours/${this.currentTour.id}`).subscribe((data: DataResponse) => {
+      if (data.ok) {
+        this.showTours = this.showTours.filter(t => t.id !== this.currentTour.id);
+        if (this.showTours.length === 0) {
+          this.showTours = this.tours;
+        }
+        this.currentTour = this.showTours[0];
+        alert(`Tour "${this.currentTour.nombre}" eliminado.`);
+      } else {
+        alert('Error. Intente de nuevo más tarde.');
+      }
+    });
   }
 
 }

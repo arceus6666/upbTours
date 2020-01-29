@@ -60,12 +60,6 @@ export class TourViewComponent implements OnInit, OnChanges {
   }
 
   checkStage(estacion: Estacion) {
-    // console.log(estacion)
-    // if (typeof estacion === 'undefined') {
-    //   return 'white';
-    // } else {
-    //   return estacion.ocupado ? 'red' : 'green';
-    // }
     const est = estacion.estado;
     switch (est) {
       case 'camino':
