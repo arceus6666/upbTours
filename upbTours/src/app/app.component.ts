@@ -12,7 +12,7 @@ export class AppComponent {
   // role = this._service.role;
 
   constructor(
-    private _service: AppService
+    public _service: AppService
   ) {
     // this.role = this._service.role;
     // this.logged = this._service.logged;
