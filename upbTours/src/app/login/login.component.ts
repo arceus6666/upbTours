@@ -18,10 +18,13 @@ export class LoginComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _service: ApiService,
-    private _app: AppService
+    public _app: AppService
   ) { }
 
   ngOnInit() {
+    if (this._app.role) {
+      this._router.navigateByUrl('/main');
+    }
     this.loginForm = this._formBuilder.group({
       codigo: ['', Validators.required],
       password: ['', Validators.required]
@@ -34,6 +37,7 @@ export class LoginComponent implements OnInit {
       // console.log(data);
       if (data.ok) {
         this._app.login(data.data.role);
+        localStorage.setItem('role', data.data.role);
         this._router.navigateByUrl('/main');
       } else {
         (document.getElementById('passid') as HTMLInputElement).value = '';

@@ -12,8 +12,8 @@ export class ApiService {
 
   constructor(private _http: HttpClient) {
     // change this to http://skynet.lp.upb.edu:XXXX/ when on build
-    // this.backend_url = 'http://localhost:3000/';
-    this.backend_url = 'http://skynet.lp.upb.edu:7777';
+    this.backend_url = 'http://localhost:7876/';
+    // this.backend_url = 'http://skynet.lp.upb.edu:7876';
   }
 
   public getGlobal<Object>(url: string): Observable<Object> {

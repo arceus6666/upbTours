@@ -17,8 +17,9 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 
-const port = 7777;
-const mongouri = process.env.MONGODB_URI || 'mongodb://mgarciameza14:isc2020@127.0.0.1:27017/mgarciameza14?authSource=mgarciameza14';
+const port = 7876;
+// const mongouri = process.env.MONGODB_URI || 'mongodb://mgarciameza14:isc2020@127.0.0.1:27017/mgarciameza14?authSource=mgarciameza14';
+const mongouri = process.env.MONGODB_URI || 'mongodb://localhost:27017/upbtours';
 
 mongoose.connect(mongouri, (err, res) => {
   if (err) {

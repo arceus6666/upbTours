@@ -14,8 +14,17 @@ export class AppComponent {
   constructor(
     public _service: AppService
   ) {
+    const role = parseInt(localStorage.getItem('role'), 10);
+    if (role) {
+      this._service.login(role);
+    }
     // this.role = this._service.role;
     // this.logged = this._service.logged;
+  }
+
+  logout() {
+    localStorage.removeItem('role');
+    this._service.logout();
   }
 
 }
