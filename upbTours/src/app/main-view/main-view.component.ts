@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Tour } from '../models/tour.interface';
 
@@ -14,7 +14,7 @@ import { AppService } from '../app.service';
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.css']
 })
-export class MainViewComponent implements OnInit {
+export class MainViewComponent implements OnInit, OnDestroy {
 
   tours: Array<Tour> = null;
   // tours: any = null;
@@ -25,22 +25,15 @@ export class MainViewComponent implements OnInit {
 
   testtext = 'empty';
 
+  interval = null;
+
   constructor(
-    private _apiService: ApiService,
+    public _apiService: ApiService,
     public _appService: AppService
     // private _toursService: ToursService
   ) { }
 
   ngOnInit() {
-    // this._service.getGlobal('tours')
-    //  .subscribe(async (data: { ok: boolean, msg: string, data: Array<Tour> }) => {
-    //   // console.log(data);
-    //   this.tours = await data.data;
-    //   // console.log(this.tours);
-    //   this.showTours = await data.data;
-    //   this.currentTour = await this.showTours[0];
-    // });
-    // let locals;
     this._apiService.getGlobal('tours').subscribe(async (data: DataResponse) => {
       // console.log(data);
       const locals = await data.data;
@@ -50,10 +43,15 @@ export class MainViewComponent implements OnInit {
         this.showTours = locals;
       }
     });
+    this.interval = setInterval(() => this.update(this._apiService), 10000);
     // console.log(locals);
     // this.tours = this._service.getGlobal('tours')
     //  .pipe(map((data: { ok: boolean, msg: string, data: Array<Tour> }) => data.data));
     // console.log(this.tours)
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 
   filter(txt: string) {
@@ -104,12 +102,16 @@ export class MainViewComponent implements OnInit {
     });
   }
 
-  pt() {
-    // this._service.postGlobal('tours/test', {});
-  }
-
-  update() {
-    // this._toursService.texttest = 'changed';
+  private update(service: ApiService) {
+    console.log('update');
+    service.getGlobal('tours').subscribe(async (data: DataResponse) => {
+      const locals = await data.data;
+      if (locals !== null && locals.length > 0) {
+        this.currentTour = locals[0];
+        this.tours = locals;
+        this.showTours = locals;
+      }
+    });
   }
 
   delete() {
